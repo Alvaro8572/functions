@@ -1,0 +1,115 @@
+<div>
+    <h2 class="section-title text-3xl font-bold mb-6 text-center mono">.nutrition_tools</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+        
+        <!-- Tool 4: IMC Calculator -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-green-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-green-500/20 rounded-lg text-green-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Calculadora IMC</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Índice de Masa Corporal.</p>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-slate-500 mb-1 block">Peso (kg)</label>
+                    <input type="number" id="imc-weight" placeholder="kg" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-green-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-500 mb-1 block">Altura (cm)</label>
+                    <input type="number" id="imc-height" placeholder="cm" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-green-500 transition-colors">
+                </div>
+            </div>
+
+            <button onclick="calculateIMC()" class="w-full py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Calcular IMC
+            </button>
+
+            <div id="imc-result" class="hidden p-3 rounded-lg bg-slate-800 border border-slate-700">
+                <p class="text-xs text-slate-500">Tu IMC es:</p>
+                <p id="imc-value" class="text-2xl font-bold text-white mono"></p>
+                <p id="imc-category" class="text-sm mt-1"></p>
+            </div>
+        </div>
+
+        <!-- Tool 5: Food Rating -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-orange-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Calificador de Alimentos</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Evalúa si un alimento es saludable.</p>
+
+            <div class="space-y-2">
+                <input type="text" id="food-name" placeholder="Nombre del alimento" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
+                <input type="number" id="food-carbs" placeholder="Carbohidratos (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
+                <input type="number" id="food-sugar" placeholder="Azúcares (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
+                <input type="number" id="food-saturated" placeholder="Grasas Saturadas (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
+                <input type="number" id="food-fiber" placeholder="Fibra (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
+            </div>
+
+            <button onclick="rateFood()" class="w-full py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Evaluar Alimento
+            </button>
+
+            <div id="food-result" class="hidden p-4 rounded-lg text-center">
+                <p id="food-rating" class="text-xl font-bold"></p>
+                <p id="food-message" class="text-sm text-slate-400 mt-2"></p>
+            </div>
+        </div>
+
+        <!-- Tool 6: Calorie Burner -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-red-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-red-500/20 rounded-lg text-red-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Quema de Calorías</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Calcula calorías quemadas por ejercicio.</p>
+
+            <div class="space-y-2">
+                <select id="exercise-type" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-red-500 transition-colors">
+                    <option value="">Selecciona ejercicio</option>
+                    <option value="3.5">Caminar (3.5 MET)</option>
+                    <option value="5.0">Correr ligero (5.0 MET)</option>
+                    <option value="8.0">Correr intenso (8.0 MET)</option>
+                    <option value="6.0">Ciclismo moderado (6.0 MET)</option>
+                    <option value="10.0">Ciclismo intenso (10.0 MET)</option>
+                    <option value="4.0">Natación moderada (4.0 MET)</option>
+                    <option value="7.0">Natación intensa (7.0 MET)</option>
+                    <option value="3.0">Yoga (3.0 MET)</option>
+                    <option value="5.5">Pesas (5.5 MET)</option>
+                    <option value="9.0">CrossFit (9.0 MET)</option>
+                </select>
+                <input type="number" id="cal-weight" placeholder="Peso (kg)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-red-500 transition-colors">
+                <input type="number" id="cal-time" placeholder="Tiempo (minutos)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-red-500 transition-colors">
+            </div>
+
+            <button onclick="calculateCalories()" class="w-full py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Calcular Calorías
+            </button>
+
+            <div id="cal-result" class="hidden p-3 rounded-lg bg-slate-800 border border-slate-700 text-center">
+                <p class="text-xs text-slate-500">Calorías quemadas:</p>
+                <p id="cal-value" class="text-3xl font-bold text-red-400 mono"></p>
+                <p class="text-sm text-slate-400">kcal</p>
+            </div>
+        </div>
+
+    </div>
+</div>

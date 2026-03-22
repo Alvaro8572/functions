@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "ritwickdey.live-server",
+        "ms-vscode.vscode-chrome-debug"
+    ],
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.AdvanceCustomBrowserParam": "--incognito",
+    "liveServer.settings.NoBrowser": false,
+    "liveServer.settings.showOnRoot": true
+}

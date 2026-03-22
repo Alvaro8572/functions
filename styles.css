@@ -1,0 +1,492 @@
+/* ================================================================================
+================================================================================
+                            .FUNCTIONS - styles.css
+                         DOCUMENTACIÓN EDUCATIVA
+================================================================================
+
+DESCRIPCIÓN:
+Este archivo contiene todos los estilos CSS personalizados de la aplicación.
+CSS (Cascading Style Sheets) controla la apariencia visual de la página.
+
+ESTRUCTURA DEL ARCHIVO:
+1. Estilos base del body
+2. Clases utilitarias (.mono, .glass-panel, etc.)
+3. Estilos de botones
+4. Estilos de tarjetas de herramientas
+5. Scrollbar personalizado
+6. Estados de inputs
+7. Animaciones y transiciones
+
+CONCEPTOS CLAVE:
+- Selectores: .class, #id, element
+- Propiedades: color, font-size, margin, padding, etc.
+- Valores: px (pixeles), % (porcentaje), rem (unidad relativa)
+- Flexbox: Sistema de diseño flexible
+- CSS Variables: Variables CSS personalizadas
+
+================================================================================
+*/
+
+/* ------------------------------------------------------------------------------
+ESTILOS DEL BODY (CUERPO DE LA PÁGINA)
+------------------------------------------------------------------------------ */
+
+/*
+El selector "body" aplica estilos al elemento <body> de HTML.
+Todos los estilos aquí se heredan a los hijos (a menos que se sobrescriban).
+*/
+body {
+    /* 
+    font-family: Define la fuente del texto
+    - 'Inter': Fuente principal (definida en Google Fonts)
+    - sans-serif: Fuente de respaldo si Inter no carga
+    */
+    font-family: 'Inter', sans-serif;
+    
+    /* 
+    background-color: Color de fondo
+    #0f172a es un azul muy oscuro (casi negro)
+    */
+    background-color: #0f172a;
+    
+    /* 
+    color: Color del texto
+    #e2e8f0 es un blanco grisáceo (más suave que blanco puro)
+    */
+    color: #e2e8f0;
+    
+    /* 
+    min-height: Altura mínima
+    100vh = 100% del viewport (altura de la ventana del navegador)
+    Esto asegura que el body ocupe al menos toda la pantalla
+    */
+    min-height: 100vh;
+    
+    /* 
+    display: Tipo de visualización
+    flex: Convierte el elemento en un contenedor flexbox
+    Flexbox permite alinear y distribuir elementos fácilmente
+    */
+    display: flex;
+    
+    /* 
+    flex-direction: Dirección de los hijos
+    column: Los hijos se apilan verticalmente (uno encima del otro)
+    */
+    flex-direction: column;
+    
+    /* 
+    align-items: Alineación en el eje perpendicular
+    center: Centrar verticalmente los hijos
+    */
+    align-items: center;
+    
+    /* 
+    justify-content: Alineación en el eje principal
+    center: Centrar horizontalmente los hijos
+    */
+    justify-content: center;
+    
+    /* 
+    overflow-x: Comportamiento del desbordamiento horizontal
+    hidden: Ocultar contenido que se salga del área visible
+    */
+    overflow-x: hidden;
+    
+    /* 
+    padding: Espacio interno
+    20px: 20 píxeles de espacio en todos los lados
+    */
+    padding: 20px;
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .mono (FUENTE MONOESPACIADA)
+------------------------------------------------------------------------------ */
+
+/*
+La clase .mono se usa para texto que necesita una fuente monoespaciada.
+Las fuentes monoespaciadas tienen todos los caracteres del mismo ancho.
+Son ideales para código, números y texto técnico.
+*/
+.mono {
+    /* 
+    font-family: Fuente monoespaciada
+    'JetBrains Mono': Fuente diseñada para código (definida en Google Fonts)
+    */
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .glass-panel (EFECTO VIDRIO/CRISTAL)
+------------------------------------------------------------------------------ */
+
+/*
+La clase .glass-panel crea un efecto de "vidrio" translúcido.
+Es un patrón de diseño popular que simula glassmorphism.
+
+Características:
+- Fondo semi-transparente
+- Efecto blur (desenfoque)
+- Bordes sutiles
+- Sombra para dar profundidad
+*/
+.glass-panel {
+    /* 
+    background: Color de fondo con opacidad
+    rgba(30, 41, 59, 0.7):
+    - 30, 41, 59: Valores RGB (rojo, verde, azul)
+    - 0.7: Opacidad (70%)
+    */
+    background: rgba(30, 41, 59, 0.7);
+    
+    /* 
+    backdrop-filter: Efectos sobre el contenido detrás
+    blur(12px): Desenfoca el contenido detrás 12 píxeles
+    Solo funciona en navegadores modernos
+    */
+    backdrop-filter: blur(12px);
+    
+    /* 
+    border: Borde del elemento
+    1px solid rgba(255, 255, 255, 0.1):
+    - 1px: Grosor del borde
+    - solid: Estilo sólido (no punteado, no discontinuo)
+    - rgba(255, 255, 255, 0.1): Blanco muy transparente (10%)
+    */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* 
+    box-shadow: Sombra del elemento
+    - 0: Desplazamiento horizontal (0 = directamente debajo)
+    - 4px: Desplazamiento vertical (hacia abajo)
+    - 30px: Desenfoque de la sombra
+    - rgba(0, 0, 0, 0.5): Sombra negra con 50% de opacidad
+    */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------------------
+ESTILOS DE BOTONES PRINCIPALES
+------------------------------------------------------------------------------ */
+
+/*
+Los estilos .main-btn aplican a los botones del menú principal.
+Cada botón tiene un gradiente de color diferente.
+*/
+
+.mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Selector .main-btn: Aplica a elementos con class="main-btn" */
+.main-btn {
+    /* 
+    transition: Animación suave de propiedades
+    all 0.3s: Todas las propiedades animan durante 300ms
+    cubic-bezier(0.4, 0, 0.2, 1): Curva de easing (bezier)
+    */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* 
+    box-shadow: Sombra del botón
+    Añade profundidad y hace que "flote" ligeramente
+    */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 
+Selector :hover: Aplicado cuando el cursor está sobre el elemento
+Aquí: cuando el usuario pasa el cursor sobre el botón
+*/
+.main-btn:hover {
+    /* 
+    transform: Transformación visual
+    translateY(-2px): Mueve el elemento 2px hacia arriba
+    scale(1.02): Escala al 102% del tamaño original
+    Esto crea un efecto de "elevación" al pasar el cursor
+    */
+    transform: translateY(-2px) scale(1.02);
+    
+    /* 
+    box-shadow: Sombra más pronunciada cuando está hover
+    */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 
+Selector :active: Aplicado cuando el botón está siendo clickeado
+Aquí: cuando el usuario hace clic en el botón
+*/
+.main-btn:active {
+    /* 
+    translateY(1px): Mueve ligeramente hacia abajo (efecto de "presión")
+    */
+    transform: translateY(1px);
+}
+
+/* ------------------------------------------------------------------------------
+BOTÓN MATEMÁTICAS (.btn-math)
+------------------------------------------------------------------------------ */
+
+/*
+El botón de matemáticas tiene un gradiente azul.
+Cada botón usa un color diferente para identificarlos visualmente.
+*/
+
+/* Selector .btn-math: Botón de la sección de matemáticas */
+.btn-math {
+    /* 
+    background: Gradiente de fondo
+    linear-gradient(dirección, color1, color2):
+    - 135deg: Ángulo de la dirección (de esquina inferior izquierda a superior derecha)
+    - #3b82f6: Azul claro
+    - #2563eb: Azul oscuro
+    */
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+/* ------------------------------------------------------------------------------
+BOTÓN NUTRICIÓN (.btn-nutrition)
+------------------------------------------------------------------------------ */
+
+.btn-nutrition {
+    /* Gradiente verde */
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* ------------------------------------------------------------------------------
+HOVER PARA BOTONES MATEMÁTICAS
+------------------------------------------------------------------------------ */
+
+.btn-math:hover {
+    /* translateY y scale crean el efecto de elevación */
+    transform: translateY(-2px) scale(1.02);
+    /* Sombra azulada para combinar con el color del botón */
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+/* ------------------------------------------------------------------------------
+HOVER PARA BOTÓN NUTRICIÓN
+------------------------------------------------------------------------------ */
+
+.btn-nutrition:hover {
+    transform: translateY(-2px) scale(1.02);
+    /* Sombra verdosa */
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+}
+
+/* ------------------------------------------------------------------------------
+SELECTOR DE ATRIBUTOS PARA TODOS LOS BOTONES
+------------------------------------------------------------------------------ */
+
+/*
+button[onclick]: Selecciona todos los botones que tienen atributo onclick
+Esto permite estilizar todos los botones interactivos de una vez
+*/
+button[onclick] {
+    /* Transición suave para todas las propiedades */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Estado hover para todos los botones con onclick */
+button[onclick]:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Estado active (mientras se hace clic) */
+button[onclick]:active {
+    transform: translateY(1px);
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .tool-card (TARJETAS DE HERRAMIENTAS)
+------------------------------------------------------------------------------ */
+
+/*
+Las tarjetas de herramientas contienen cada herramienta individual.
+Esta clase asegura que siempre sean visibles y no tengan transformaciones.
+*/
+
+.tool-card {
+    /* 
+    opacity: Opacidad del elemento
+    1 = 100% opaco (completamente visible)
+    !important: Prioriza este valor sobre otros
+    */
+    opacity: 1 !important;
+    
+    /* 
+    transform: Sin transformación por defecto
+    translateY(0) = en su posición original
+    */
+    transform: translateY(0) !important;
+}
+
+/* ------------------------------------------------------------------------------
+PERSONALIZACIÓN DEL SCROLLBAR (BARRA DE DESPLAZAMIENTO)
+------------------------------------------------------------------------------ */
+
+/*
+::-webkit-scrollbar: Personaliza la barra de desplazamiento en Chrome/Safari/Edge
+*/
+
+/* Ancho de la scrollbar */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track: El fondo de la scrollbar */
+.custom-scroll::-webkit-scrollbar-track {
+    /* Color de fondo del canal */
+    background: #1e293b;
+    /* Bordes redondeados */
+    border-radius: 4px;
+}
+
+/* Thumb: La barra que se arrastra */
+.custom-scroll::-webkit-scrollbar-thumb {
+    /* Color de la barra */
+    background: #475569;
+    /* Bordes redondeados */
+    border-radius: 4px;
+}
+
+/* Thumb hover: Cuando el cursor está sobre la barra */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    /* Color ligeramente más claro */
+    background: #64748b;
+}
+
+/* ------------------------------------------------------------------------------
+ESTILOS DE INPUTS Y SELECTS AL FOCUS (CUANDO ESTÁN SELECCIONADOS)
+------------------------------------------------------------------------------ */
+
+/*
+:focus: Aplicado cuando el elemento tiene el foco (está seleccionado)
+Ejemplo: cuando haces clic en un campo de texto
+*/
+
+/* Inputs y selects al estar focuseados */
+input:focus, select:focus {
+    /* 
+    outline: Contorno alrededor del elemento
+    none: Sin contorno (lo quitamos para usar box-shadow)
+    */
+    outline: none;
+    
+    /* 
+    border-color: Color del borde
+    #3b82f6: Azul (el color principal de la app)
+    */
+    border-color: #3b82f6;
+    
+    /* 
+    box-shadow: Añade un resplandor azul suave
+    rgba(59, 130, 246, 0.2): Azul con 20% de opacidad
+    */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .section-title (TÍTULOS DE SECCIÓN)
+------------------------------------------------------------------------------ */
+
+/*
+Los títulos de sección usan un gradiente de texto.
+El texto se "recorta" mostrando el fondo (que es un gradiente).
+*/
+
+.section-title {
+    /* 
+    background: Gradiente como fondo del texto
+    - 90deg: Dirección horizontal
+    - #3b82f6 a #8b5cf6: De azul a morado
+    */
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    
+    /* 
+    -webkit-background-clip: Define qué parte del elemento usa el fondo
+    text: Solo el texto usa el fondo (el gradiente)
+    */
+    -webkit-background-clip: text;
+    
+    /* 
+    -webkit-text-fill-color: Color de relleno del texto
+    transparent: Hace el color del texto transparente
+    Esto permite que se vea el gradiente del fondo
+    */
+    -webkit-text-fill-color: transparent;
+    
+    /* 
+    background-clip: Versión estándar de webkit-background-clip
+    text: El fondo se recorta al texto
+    */
+    background-clip: text;
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .hidden-section (SECCIÓN OCULTA)
+------------------------------------------------------------------------------ */
+
+/*
+Usada para ocultar elementos que deben mostrarse/ocultarse dinámicamente.
+*/
+
+.hidden-section {
+    /* 
+    display: none: El elemento no se muestra y no ocupa espacio
+    Es diferente de visibility: hidden (que sí ocupa espacio)
+    */
+    display: none;
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .fade-in (ANIMACIÓN DE ENTRADA)
+------------------------------------------------------------------------------ */
+
+/*
+Animación que hace que los elementos aparezcan suavemente.
+*/
+
+.fade-in {
+    /* 
+    animation: Define una animación
+    - fadeIn: Nombre de la animación (definida abajo con @keyframes)
+    - 0.5s: Duración de la animación
+    - ease-in: Tipo de easing (comienza lento, termina rápido)
+    */
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* ------------------------------------------------------------------------------
+DEFINICIÓN DE ANIMACIONES (@keyframes)
+------------------------------------------------------------------------------ */
+
+/*
+@keyframes define cómo debe cambiar un elemento a lo largo del tiempo.
+Se especifica el estado inicial (from) y el estado final (to).
+
+La animación fadeIn:
+1. Estado inicial: Opacidad 0 (invisible) y translateY 20px (20px más abajo)
+2. Estado final: Opacidad 1 (visible) y translateY 0 (posición original)
+*/
+
+@keyframes fadeIn {
+    /* Estado inicial (0% de la animación) */
+    from { 
+        opacity: 0;  /* Invisible */
+        transform: translateY(20px);  /* Desplazado 20px hacia abajo */
+    }
+    
+    /* Estado final (100% de la animación) */
+    to { 
+        opacity: 1;  /* Completamente visible */
+        transform: translateY(0);  /* En su posición original */
+    }
+}
+
+/* ================================================================================
+                              FIN DE styles.css
+================================================================================ */

@@ -1,0 +1,1251 @@
+================================================================================
+================================================================================
+                    .FUNCTIONS - DOCUMENTACIÓN EDUCATIVA
+================================================================================
+================================================================================
+
+ Este archivo HTML es la estructura principal de la aplicación web ".functions".
+ Es una SPA (Single Page Application) que carga diferentes secciones sin 
+ recargar la página.
+
+ ESTRUCTURA DEL DOCUMENTO:
+ 1. <head> - Configuración y recursos externos (CSS, fuentes)
+ 2. <body> - Contenido visible de la página
+    a. Header - Título y subtítulo de la app
+    b. Main Menu - 3 botones principales para las secciones
+    c. Back Button - Botón para volver al menú principal
+    d. Content Container - Donde se cargan las secciones (math, nutrition, etc.)
+    e. Daily Lab Panel - Panel flotante con misiones diarias
+    f. Scripts - JavaScript para la lógica de la app
+
+================================================================================
+*/
+
+<!DOCTYPE html>
+<!-- 
+  <!DOCTYPE html>
+  Indica que este es un documento HTML5 moderno.
+  Es una buena práctica incluirla siempre.
+-->
+<html lang="es">
+<!-- 
+  lang="es" indica que el contenido está en español.
+  Esto ayuda a los navegadores y motores de búsqueda.
+-->
+<head>
+    <!-- 
+    =============================================================================
+    SECCIÓN <head>: METADATOS Y RECURSOS
+    =============================================================================
+    El <head> contiene información sobre la página que no es visible directamente,
+    pero es necesaria para que la página funcione correctamente.
+    -->
+
+    <!-- Codificación de caracteres UTF-8 para soportar acentos y caracteres especiales -->
+    <meta charset="UTF-8">
+    
+    <!-- 
+    viewport: Configura cómo la página se muestra en dispositivos móviles
+    - width=device-width: El ancho de la página coincide con el ancho de la pantalla
+    - initial-scale=1.0: Zoom inicial al 100%
+    Esto es ESSENCIAL para diseño responsive (que se vea bien en móviles).
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>.functions</title>
+
+    <!-- 
+    =============================================================================
+    RECURSOS EXTERNOS (CDN)
+    =============================================================================
+    CDN = Content Delivery Network. Son archivos que se cargan desde internet.
+    Usamos CDN para no tener que descargar e incluir estos archivos manualmente.
+    -->
+
+    <!-- 
+    TAILWIND CSS (con defer)
+    - Framework de CSS que proporciona clases predefinidas para estilos
+    - "defer" significa que se carga después de que el HTML esté listo
+    - URL: https://tailwindcss.com
+    -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+
+    <!-- 
+    GOOGLE FONTS
+    - Cargamos fuentes personalizadas desde Google Fonts
+    - JetBrains Mono: Fuente monoespaciada (ideal para código)
+    - Inter: Fuente legible para texto general
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 
+    HOJAS DE ESTILO CSS LOCALES
+    - styles.css: Archivo CSS personalizado nosso
+    - Contiene estilos que complementan/sobrescriben a Tailwind
+    -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- 
+================================================================================
+SECCIÓN <body>: CONTENIDO VISIBLE
+================================================================================
+Todo lo que está dentro de <body> se muestra en la página web.
+
+ESTILOS INLINE DEL BODY (por qué usamos inline styles):
+- Los estilos inline (style="...") se aplican directamente al elemento
+- Los usamos como fallback en caso de que Tailwind CSS no cargue
+- Combinamos Tailwind + inline para máxima compatibilidad
+-->
+<body 
+    style="
+        margin: 0;                    /* Elimina márgenes por defecto del navegador */
+        padding: 20px;                 /* Espacio interno de 20px alrededor del contenido */
+        font-family: 'Inter', sans-serif;  /* Fuente principal para el texto */
+        background-color: #0f172a;      /* Color de fondo oscuro (azul muy oscuro) */
+        color: #e2e8f0;               /* Color del texto (blanco-gris claro) */
+        min-height: 100vh;             /* Altura mínima = 100% del viewport (pantalla) */
+        display: flex;                 /* Contenedor flexbox para centrar contenido */
+        flex-direction: column;       /* Los hijos se apilan verticalmente */
+        align-items: center;          /* Centrar horizontalmente los hijos */
+        justify-content: center;       /* Centrar verticalmente los hijos */
+    "
+>
+
+<!-- 
+================================================================================
+CONTENEDOR PRINCIPAL (#app)
+================================================================================
+Este es el contenedor principal donde se renderiza todo el contenido.
+Tiene id="app" para que JavaScript pueda encontrarlo fácilmente.
+
+Por qué #app:
+- El símbolo # indica que es un ID
+- Es una convención común para el contenedor raíz de una SPA
+- JavaScript busca elementos por su ID con document.getElementById("app")
+-->
+<div id="app" 
+    style="
+        width: 100%;                  /* Ocupa 100% del ancho disponible */
+        max-width: 1152px;            /* Pero no más de 1152px (limita el ancho máximo) */
+        display: flex;                /* Flexbox para organizar hijos */
+        flex-direction: column;      /* Hijos en columna vertical */
+        align-items: center;          /* Centrar horizontalmente */
+        gap: 32px;                  /* Espacio de 32px entre hijos */
+        padding: 32px 0;             /* Padding arriba/abajo de 32px */
+    "
+>
+
+    <!-- =========================================================================
+    HEADER (ENCABEZADO)
+    =========================================================================
+    El header contiene el título principal de la aplicación.
+    Es la primera cosa que ve el usuario.
+    -->
+    <header style="text-align: center; margin-bottom: 32px;">
+        
+        <!-- 
+        <h1>: Título principal
+        - Es el heading más importante (h1)
+        - Los headings van de h1 a h6, donde h1 es el más grande
+        -->
+        <h1 style="
+            font-size: 48px;                  /* Tamaño de fuente grande (48px) */
+            font-weight: 800;                 /* Peso de fuente muy bold (casi negro) */
+            color: white;                      /* Color blanco */
+            margin-bottom: 8px;                /* Espacio debajo del título */
+            letter-spacing: -0.05em;          /* Espaciado entre letras negativo (más junto) */
+        ">
+            <!-- 
+            <span>: Contenedor inline para aplicar estilo a parte del texto
+            El punto "." tiene un color azul (#3b82f6) para destacar
+            -->
+            <span style="color: #3b82f6;">.</span>functions
+        </h1>
+
+        <!-- 
+        <p>: Párrafo/subtítulo
+        Muestra el estado del sistema
+        -->
+        <p style="
+            color: #94a3b8;                   /* Color gris claro */
+            font-family: 'JetBrains Mono', monospace;  /* Fuente monoespaciada */
+            font-size: 14px;                   /* Tamaño de fuente pequeño */
+        ">
+            System Ready. Select Module.
+        </p>
+    </header>
+
+    <!-- =========================================================================
+    MENÚ PRINCIPAL (#main-menu)
+    =========================================================================
+    El menú principal contiene 3 botones grandes para las secciones de la app:
+    1. .math_generator - Herramientas de matemáticas
+    2. .nutrition_tools - Herramientas de nutrición
+    3. .productivity_tools - Herramientas de productividad
+
+    Cada botón tiene:
+    - onclick: La función JavaScript que se ejecuta al hacer clic
+    - Estilos inline para el diseño
+    - Un icono SVG
+    -->
+    <div id="main-menu" 
+        style="
+            display: flex;                     /* Flexbox para alinear botones */
+            flex-direction: column;            /* Botones en columna vertical */
+            gap: 24px;                       /* Espacio de 24px entre botones */
+            position: relative;               /* Posición relativa para contexto de z-index */
+            z-index: 10;                     /* Por encima de otros elementos */
+        "
+    >
+        <!-- 
+        ================================================================
+        BOTÓN 1: MATH GENERATOR (Azul)
+        ================================================================
+        color de fondo: gradiente azul (#3b82f6 → #2563eb)
+        onclick: Carga la sección de matemáticas
+        -->
+        <button 
+            onclick="loadSection('math')" 
+            style="
+                padding: 16px 32px;           /* Espacio interno: 16px vertical, 32px horizontal */
+                border-radius: 16px;            /* Bordes redondeados (16px de radio) */
+                color: white;                  /* Texto blanco */
+                font-weight: 700;             /* Texto muy bold */
+                font-size: 20px;              /* Tamaño de fuente grande */
+                display: flex;                /* Icono y texto en línea */
+                align-items: center;          /* Centrar verticalmente icono y texto */
+                gap: 12px;                   /* Espacio entre icono y texto */
+                background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+                border: none;                 /* Sin borde */
+                cursor: pointer;              /* Cursor de mano al pasar */
+                transition: all 0.3s;        /* Animación suave al interactuar */
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);  /* Sombra para dar profundidad */
+                font-family: 'JetBrains Mono', monospace;   /* Fuente monoespaciada */
+            "
+        >
+            <!-- Texto del botón -->
+            <span>.math_generator</span>
+            
+            <!-- 
+            SVG: Icono de calculadora
+            Los SVGs son imágenes vectoriales definidas directamente en el código.
+            Ventajas: Se ven bien en cualquier tamaño, se pueden colorear con CSS.
+            xmlns, viewBox, stroke: Configuración estándar de SVG
+            path d="...": Define la forma del icono
+            -->
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M9 7h6m0 36v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+        </button>
+
+        <!-- 
+        ================================================================
+        BOTÓN 2: NUTRITION TOOLS (Verde)
+        ================================================================
+        color de fondo: gradiente verde (#10b981 → #059669)
+        onclick: Carga la sección de nutrición
+        -->
+        <button 
+            onclick="loadSection('nutrition')" 
+            style="
+                padding: 16px 32px;
+                border-radius: 16px;
+                color: white;
+                font-weight: 700;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                font-family: 'JetBrains Mono', monospace;
+            "
+        >
+            <span>.nutrition_tools</span>
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        </button>
+
+        <!-- 
+        ================================================================
+        BOTÓN 3: PRODUCTIVITY TOOLS (Morado)
+        ================================================================
+        color de fondo: gradiente morado (#8b5cf6 → #7c3aed)
+        onclick: Carga la sección de productividad
+        -->
+        <button 
+            onclick="loadSection('productivity')" 
+            style="
+                padding: 16px 32px;
+                border-radius: 16px;
+                color: white;
+                font-weight: 700;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                font-family: 'JetBrains Mono', monospace;
+            "
+        >
+            <span>.productivity_tools</span>
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- =========================================================================
+    BOTÓN VOLVER (#back-btn)
+    =========================================================================
+    Este botón aparece cuando el usuario está dentro de una sección.
+    Permite volver al menú principal.
+
+    Inicialmente está oculto (display: none)
+    Se muestra con JavaScript cuando se carga una sección.
+    -->
+    <button 
+        id="back-btn" 
+        onclick="showMainMenu()" 
+        style="
+            display: none;                    /* Oculto por defecto */
+            margin-bottom: 16px;               /* Espacio debajo del botón */
+            color: #94a3b8;                    /* Color gris */
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            padding: 8px 16px;                 /* Espacio interno pequeño */
+            border-radius: 8px;                /* Bordes redondeados */
+            border: none;                      /* Sin borde */
+            cursor: pointer;                   /* Cursor de mano */
+            background: transparent;            /* Fondo transparente */
+            transition: all 0.2s;              /* Animación suave */
+            align-items: center;               /* Centrar icono y texto */
+            gap: 8px;                          /* Espacio entre icono y texto */
+        "
+    >
+        <!-- Flecha hacia la izquierda (ícono de "volver") -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>BACK_TO_MENU</span>
+    </button>
+
+    <!-- =========================================================================
+    CONTENEDOR DE CONTENIDO (#content-container)
+    =========================================================================
+    Aquí se carga dinámicamente el contenido de cada sección.
+    Contiene las herramientas de matemáticas, nutrición o productividad.
+
+    Inicialmente oculto (display: none)
+    Se muestra cuando el usuario selecciona una sección.
+    -->
+    <div 
+        id="content-container" 
+        style="
+            width: 100%;                      /* Ocupa todo el ancho */
+            display: none;                     /* Oculto por defecto */
+        "
+    >
+        <!-- 
+        El contenido se inyecta aquí con JavaScript usando innerHTML
+        Se cargan los templates: mathHTML, nutritionHTML, o productivityHTML
+        Located in script.js
+        -->
+    </div>
+
+</div>
+<!-- FIN DEL CONTENEDOR PRINCIPAL #app -->
+
+<!-- =========================================================================
+CANVAS DE CONFETTI
+=========================================================================
+Canvas HTML5 para dibujar la animación de confetti.
+Canvas es un elemento que permite dibujar gráficos con JavaScript.
+
+- position: fixed: Se mantiene en su posición aunque se haga scroll
+- z-index: 200: Por encima de todo lo demás
+- pointer-events: none: No interfere con clics del usuario
+-->
+<canvas 
+    id="confetti-canvas" 
+    style="
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        pointer-events: none; 
+        z-index: 200; 
+        display: none;    /* Oculto hasta que se active */
+    "
+></canvas>
+
+<!-- =========================================================================
+PANEL DAILY LAB (MISIONES DIARIAS)
+=========================================================================
+Panel flotante en la esquina inferior derecha que muestra las misiones diarias.
+El usuario debe completar estas misiones usando las herramientas de la app.
+
+ESTRUCTURA:
+- daily-lab-container: Contenedor padre (position: fixed)
+- daily-lab-toggle: Botón circular para abrir/cerrar el panel
+- daily-lab-panel: Panel que se expande/contraye
+-->
+<div id="daily-lab-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 50;">
+    
+    <!-- 
+    BOTÓN Toggle (botón circular con icono de matraz/tubo de ensayo)
+    Este botón siempre es visible en la esquina inferior derecha.
+    Al hacer clic, alterna (toggle) la visibilidad del panel.
+    -->
+    <button 
+        id="daily-lab-toggle" 
+        onclick="toggleDailyLab()" 
+        style="
+            width: 56px;                      /* Ancho del botón circular */
+            height: 56px;                     /* Alto del botón circular */
+            border-radius: 9999px;             /* Forma circular perfecta */
+            background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);  /* Gradiente morado-rosa */
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;          /* Centrar icono en el círculo */
+            transition: all 0.3s;              /* Animación suave */
+            box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4);  /* Sombra con color del gradiente */
+        "
+    >
+        <!-- Icono de matraz de laboratorio -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+
+        <!-- 
+        BADGE (insignia de progreso)
+        Muestra el número de misiones completadas o una marca de verificación.
+        Posicionado en la esquina superior derecha del botón.
+        -->
+        <span 
+            id="daily-lab-badge" 
+            style="
+                display: none;                  /* Oculto cuando no hay progreso */
+                position: absolute;             /* Posición absoluta respecto al padre */
+                top: -4px;
+                right: -4px;
+                min-width: 20px;
+                height: 20px;
+                background: #22c55e;            /* Verde para indicar progreso */
+                color: white;
+                font-size: 11px;
+                font-weight: bold;
+                border-radius: 9999px;          /* Forma circular */
+                display: flex;                  /* Flex para centrar el número */
+                align-items: center;
+                justify-content: center;
+                padding: 0 4px;               /* Padding horizontal para números largos */
+            "
+        >0</span>
+    </button>
+
+    <!-- 
+    PANEL DE MISIÓN (oculto por defecto)
+    Este panel se expande cuando el usuario hace clic en el botón toggle.
+    Muestra la lista de misiones del día.
+    -->
+    <div 
+        id="daily-lab-panel" 
+        style="
+            display: none;                     /* Oculto por defecto */
+            position: absolute;                 /* Posición absoluta debajo del botón */
+            bottom: 80px;                      /* 80px arriba del botón */
+            right: 0;                          /* Alineado a la derecha */
+            width: 320px;                     /* Ancho del panel */
+            max-width: 384px;                 /* Ancho máximo en pantallas grandes */
+            border-radius: 16px;              /* Bordes redondeados */
+            padding: 20px;                    /* Espacio interno */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);  /* Sombra oscura */
+            transition: all 0.3s;             /* Animación de apertura */
+            background: rgba(30, 41, 59, 0.95);  /* Fondo semi-transparente oscuro */
+            backdrop-filter: blur(12px);       /* Efecto de desenfoque detrás */
+            border: 1px solid rgba(255, 255, 255, 0.15);  /* Borde sutil */
+            transform: scale(0.95);            /* Escala reducida (para animación) */
+            opacity: 0;                       /* Invisible (para animación) */
+        "
+    >
+        <!-- 
+        ENCABEZADO DEL PANEL
+        Título "Daily Lab" y botón para cerrar
+        -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">🧪</span>
+                <h3 style="font-size: 18px; font-weight: bold; color: white;">Daily Lab</h3>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <!-- Texto de progreso (ej: "1/3") -->
+                <span id="progress-text" style="font-size: 12px; color: #64748b; font-family: monospace;">0/3</span>
+                <!-- Botón para cerrar el panel -->
+                <button onclick="toggleDailyLab()" style="color: #64748b; background: none; border: none; cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Descripción del panel -->
+        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Complete today's experiments</p>
+
+        <!-- 
+        LISTA DE MISIONES (#missions-list)
+        Aquí se inyectan dinámicamente las misiones con JavaScript.
+        Cada misión muestra:
+        - Estado: ○ (no completada) o ✓ (completada)
+        - Icono: Emojis representativos
+        - Título: Descripción de la misión
+        -->
+        <div 
+            id="missions-list" 
+            style="
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                max-height: 320px;              /* Altura máxima con scroll */
+                overflow-y: auto;              /* Scroll vertical si hay muchas misiones */
+                min-height: 60px;               /* Altura mínima */
+            "
+        >
+            <!-- Las misiones se inyectan aquí con JavaScript -->
+        </div>
+
+        <!-- ÁREA DE FEEDBACK -->
+        <!-- Muestra mensajes temporales cuando se completa una misión -->
+        <div 
+            id="lab-feedback" 
+            style="
+                display: none;                 /* Oculto por defecto */
+                margin-top: 12px;
+                padding: 8px;
+                border-radius: 8px;
+                background: rgba(30, 41, 59, 0.8);
+                text-align: center;
+            "
+        >
+            <p id="lab-feedback-text" style="font-size: 12px; font-weight: 600;"></p>
+        </div>
+
+        <!-- 
+        MENSAJE DE COMPLETADO
+        Aparece cuando TODAS las misiones están completadas
+        -->
+        <div 
+            id="all-complete-msg" 
+            style="
+                display: none;                 /* Oculto por defecto */
+                margin-top: 12px;
+                padding: 8px;
+                border-radius: 8px;
+                background: rgba(34, 197, 94, 0.15);
+                border: 1px solid rgba(34, 197, 94, 0.3);
+                text-align: center;
+            "
+        >
+            <p style="color: #4ade80; font-weight: 600; font-size: 14px;">🎉 All experiments complete!</p>
+        </div>
+    </div>
+</div>
+
+<!-- 
+================================================================================
+SECCIÓN DE SCRIPTS (JavaScript)
+================================================================================
+El código JavaScript se coloca al final del <body> para que se ejecute
+después de que todo el HTML esté cargado.
+
+Tenemos DOS bloques de script:
+1. script.js externo - Lógica principal de la app
+2. Script inline - Lógica específica del Daily Lab (misiones)
+-->
+
+<!-- 
+SCRIPT EXTERNO (script.js)
+Este archivo contiene:
+- Templates HTML para las secciones (mathHTML, nutritionHTML, etc.)
+- Funciones para las herramientas
+- Funciones loadSection y showMainMenu
+-->
+<script src="script.js"></script>
+
+<!-- 
+SCRIPT INLINE - Lógica del Daily Lab
+Este código maneja el sistema de misiones diarias.
+Está en un script inline para tener acceso directo a los elementos del DOM.
+-->
+<script>
+/* 
+================================================================================
+VARIABLES GLOBALES DEL DAILY LAB
+================================================================================
+Estas variables mantienen el estado de las misiones entre diferentes
+llamadas de función.
+*/
+
+// Indica si el panel de Daily Lab está expandido o no
+let dailyLabExpanded = false;
+
+// Objeto que guarda todos los datos del Daily Lab
+// Se guarda en localStorage para persistir entre sesiones
+let dailyLabData = {
+    date: '',                        // Fecha actual (formato YYYY-MM-DD)
+    selectedMissions: [],            // Array con las 3 misiones seleccionadas para hoy
+    completed: {},                   // Objeto que indica qué misiones están completadas
+    allCompleteShown: false          // Bandera para saber si ya mostramos el mensaje de "todo completo"
+};
+
+/* 
+================================================================================
+DEFINICIÓN DE MISIONES DISPONIBLES
+================================================================================
+Array con TODAS las posibles misiones que el usuario puede recibir.
+Cada misión tiene:
+- id: Identificador único (usado para tracking)
+- title: Texto que se muestra al usuario
+- icon: Emoji representativo
+*/
+const allMissions = [
+    { id: 'pin', title: 'Generate a PIN', icon: '🔐' },           // Generar PIN
+    { id: 'password', title: 'Generate any password', icon: '🔑' }, // Generar contraseña
+    { id: 'longpwd', title: 'Generate a long password (10+)', icon: '🔒' }, // Contraseña larga
+    { id: 'fibonacci', title: 'Use the Fibonacci generator', icon: '🔢' }, // Generar Fibonacci
+    { id: 'triangle', title: 'Generate triangle angles', icon: '📐' }, // Generar ángulos de triángulo
+    { id: 'polygon', title: 'Search for a polygon', icon: '⬡' },    // Buscar polígono
+    { id: 'food', title: 'Evaluate a food', icon: '🥗' },           // Evaluar alimento
+    { id: 'compare', title: 'Compare foods', icon: '⚖️' }            // Comparar alimentos
+];
+
+/* 
+================================================================================
+FUNCIÓN: getToday()
+================================================================================
+Obtiene la fecha actual en formato YYYY-MM-DD.
+
+Ejemplo: "2024-03-15"
+
+¿Para qué sirve?
+- Para saber si las misiones guardadas son de HOY o de otro día
+- Las misiones se resetean cada día
+*/
+function getToday() {
+    // new Date() crea un objeto fecha con la fecha/hora actual
+    // toISOString() la convierte a formato ISO (YYYY-MM-DDTHH:mm:ss.sssZ)
+    // split('T')[0] toma solo la parte de la fecha (antes de la T)
+    return new Date().toISOString().split('T')[0];
+}
+
+/* 
+================================================================================
+FUNCIÓN: shuffleArray(array)
+================================================================================
+Baraja (reordena aleatoriamente) un array usando el algoritmo Fisher-Yates.
+
+Parámetros:
+- array: El array que queremos barajar
+
+Retorna:
+- Un NUEVO array con los elementos en orden aleatorio
+- NO modifica el array original
+
+Este algoritmo es el estándar de la industria para barajar arrays.
+Garantiza que cada permutación tiene la misma probabilidad.
+*/
+function shuffleArray(array) {
+    // Creamos una copia del array para no modificar el original
+    const arr = [...array];
+    
+    // Algoritmo Fisher-Yates
+    // Recorremos el array de derecha a izquierda
+    for (let i = arr.length - 1; i > 0; i--) {
+        // Elegimos un índice aleatorio entre 0 e i (inclusive)
+        const j = Math.floor(Math.random() * (i + 1));
+        
+        // Intercambiamos los elementos en las posiciones i y j
+        // Esto se llama "destructuring assignment" y es una forma concisa de swap
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    
+    return arr;
+}
+
+/* 
+================================================================================
+FUNCIÓN: initDailyLab()
+================================================================================
+Inicializa el sistema de Daily Lab.
+Se llama cuando el DOM está completamente cargado.
+
+Pasos:
+1. Obtener la fecha de hoy
+2. Buscar si hay datos guardados en localStorage
+3. Si los datos son de hoy → usarlos
+4. Si son de otro día o no existen → generar nuevas misiones
+5. Actualizar el badge
+
+localStorage es una API del navegador que permite guardar datos
+persistentes en el navegador del usuario. Sobrevive entre sesiones.
+*/
+function initDailyLab() {
+    console.log('[DailyLab] Initializing...');
+    
+    const today = getToday();  // Fecha de hoy
+    
+    // Intentamos obtener los datos guardados previamente
+    const stored = localStorage.getItem('dailyLabData');
+
+    // Si hay datos guardados...
+    if (stored) {
+        try {
+            // JSON.parse convierte el texto JSON a un objeto JavaScript
+            const data = JSON.parse(stored);
+            
+            // Verificamos si los datos son de hoy Y tienen misiones
+            if (data.date === today && data.selectedMissions && data.selectedMissions.length > 0) {
+                // Los datos son válidos → los usamos
+                dailyLabData = data;
+                dailyLabData.allCompleteShown = false;  // Resetear bandera de completado
+                console.log('[DailyLab] Loaded existing missions:', dailyLabData.selectedMissions);
+            } else {
+                // Los datos son de otro día → generamos nuevas misiones
+                console.log('[DailyLab] Generating new missions...');
+                generateNewMissions(today);
+            }
+        } catch (e) {
+            // Hubo un error al parsear (probablemente datos corruptos)
+            console.error('[DailyLab] Error loading:', e);
+            generateNewMissions(today);
+        }
+    } else {
+        // No hay datos guardados → primera vez que se usa
+        console.log('[DailyLab] No stored data, generating new missions...');
+        generateNewMissions(today);
+    }
+
+    // Actualizar el badge con el progreso actual
+    updateBadge();
+    console.log('[DailyLab] Initialization complete');
+}
+
+/* 
+================================================================================
+FUNCIÓN: generateNewMissions(today)
+================================================================================
+Genera 3 nuevas misiones aleatorias para el día actual.
+
+Pasos:
+1. Barajar todas las misiones disponibles
+2. Tomar las primeras 3
+3. Crear objeto de completado (todas en false)
+4. Guardar en localStorage
+*/
+function generateNewMissions(today) {
+    // Barajar todas las misiones y tomar las primeras 3
+    const shuffled = shuffleArray(allMissions);
+    const selected = shuffled.slice(0, 3);  // slice(start, end) - toma elementos de 0 a 2
+    
+    // Crear objeto de completado: { idMision1: false, idMision2: false, idMision3: false }
+    const completed = {};
+    selected.forEach(m => completed[m.id] = false);
+
+    // Actualizar el estado global
+    dailyLabData = {
+        date: today,
+        selectedMissions: selected,  // Las 3 misiones seleccionadas
+        completed: completed,        // Estado de completado de cada una
+        allCompleteShown: false     // No hemos mostrado "todo completo"
+    };
+    
+    // Guardar en localStorage para persistencia
+    saveDailyLab();
+}
+
+/* 
+================================================================================
+FUNCIÓN: saveDailyLab()
+================================================================================
+Guarda el estado actual del Daily Lab en localStorage.
+
+JSON.stringify convierte el objeto JavaScript a texto JSON
+para que pueda ser almacenado como string.
+*/
+function saveDailyLab() {
+    // localStorage.setItem(key, value) guarda datos en el navegador
+    localStorage.setItem('dailyLabData', JSON.stringify(dailyLabData));
+}
+
+/* 
+================================================================================
+FUNCIÓN: toggleDailyLab()
+================================================================================
+Alterna (muestra/oculta) el panel de Daily Lab.
+
+Cuando se muestra el panel:
+1. Se hace visible (display: block)
+2. Se renderizan las misiones
+3. Se anima la entrada (scale + opacity)
+
+Cuando se oculta:
+1. Se anima la salida
+2. Después de 300ms, se oculta completamente
+*/
+function toggleDailyLab() {
+    // Toggle: si es true → false, si es false → true
+    dailyLabExpanded = !dailyLabExpanded;
+    
+    const panel = document.getElementById('daily-lab-panel');
+
+    if (!panel) {
+        console.error('[DailyLab] Panel not found!');
+        return;
+    }
+
+    console.log('[DailyLab] Toggle panel, expanded:', dailyLabExpanded);
+
+    if (dailyLabExpanded) {
+        // === MOSTRAR PANEL ===
+        
+        // Primero lo hacemos visible
+        panel.style.display = 'block';
+        
+        // Renderizar las misiones en la lista
+        renderMissions();
+        
+        // Animar la entrada después de 10ms (para que se vea el display:block)
+        setTimeout(() => {
+            panel.style.transform = 'scale(1)';  // Escalar a tamaño normal
+            panel.style.opacity = '1';            // Hacerlo completamente visible
+        }, 10);
+        
+    } else {
+        // === OCULTAR PANEL ===
+        
+        // Animar la salida
+        panel.style.transform = 'scale(0.95)';  // Reducir tamaño ligeramente
+        panel.style.opacity = '0';               // Hacerlo transparente
+        
+        // Después de 300ms, ocultar completamente
+        setTimeout(() => {
+            panel.style.display = 'none';
+        }, 300);
+    }
+}
+
+/* 
+================================================================================
+FUNCIÓN: renderMissions()
+================================================================================
+Renderiza (dibuja) la lista de misiones en el panel.
+
+Para cada misión:
+1. Verifica si está completada
+2. Crea un div con los estilos apropiados
+3. Muestra el icono, título y estado
+4. Lo añade al contenedor
+
+También actualiza:
+- El texto de progreso (ej: "2/3")
+- El mensaje de "todo completo"
+*/
+function renderMissions() {
+    console.log('[DailyLab] renderMissions called');
+    
+    const container = document.getElementById('missions-list');
+    if (!container) {
+        console.error('[DailyLab] missions-list container not found');
+        return;
+    }
+
+    // Limpiar el contenedor (eliminar cualquier contenido anterior)
+    container.innerHTML = '';
+
+    // Obtener las misiones del día
+    const missions = dailyLabData.selectedMissions || [];
+    const missionCount = missions.length;
+    console.log('[DailyLab] Rendering', missionCount, 'missions');
+
+    // Si no hay misiones, mostrar mensaje de carga
+    if (!missions || missions.length === 0) {
+        container.innerHTML = '<p style="color: #64748b; font-size: 12px; text-align: center; padding: 16px;">Loading missions...</p>';
+        console.log('[DailyLab] No missions, showing fallback');
+        return;
+    }
+
+    // Recorrer cada misión y crear su elemento HTML
+    missions.forEach(mission => {
+        // Verificar si esta misión está completada
+        const isCompleted = dailyLabData.completed && dailyLabData.completed[mission.id] === true;
+
+        // Crear un div para la misión
+        const div = document.createElement('div');
+        
+        // Determinar colores según estado
+        const bgColor = isCompleted ? 'rgba(34, 197, 94, 0.15)' : 'rgba(51, 65, 85, 0.4)';  // Verde si completada
+        const checkColor = isCompleted ? '#4ade80' : '#64748b';  // Check verde o gris
+        const textColor = isCompleted ? '#94a3b8' : '#e2e8f0';    // Texto más claro si completada
+        const textDecoration = isCompleted ? 'line-through' : 'none';  // Tachado si completada
+
+        // Aplicar estilos al div
+        div.style.cssText = `
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 8px; 
+            border-radius: 8px; 
+            transition: all 0.3s; 
+            background: ${bgColor};
+        `;
+
+        // Contenido HTML de la misión
+        div.innerHTML = `
+            <span style="font-size: 14px; width: 20px; text-align: center; color: ${checkColor};">
+                ${isCompleted ? '✓' : '○'}
+            </span>
+            <span style="font-size: 14px;">${mission.icon}</span>
+            <span style="flex: 1; font-size: 12px; color: ${textColor}; text-decoration: ${textDecoration};">
+                ${mission.title}
+            </span>
+        `;
+
+        // Añadir la misión al contenedor
+        container.appendChild(div);
+    });
+
+    // === ACTUALIZAR PROGRESO ===
+    
+    // Contar cuántas misiones están completadas
+    const selectedIds = dailyLabData.selectedMissions.map(m => m.id);
+    const total = selectedIds.filter(id => dailyLabData.completed && dailyLabData.completed[id] === true).length;
+
+    console.log('[DailyLab] Progress:', total, '/', missionCount);
+
+    // Actualizar el texto de progreso (ej: "2/3")
+    const progressEl = document.getElementById('progress-text');
+    if (progressEl) {
+        progressEl.textContent = `${total}/${missionCount}`;
+        progressEl.style.color = '#64748b';
+    }
+
+    // Mostrar/ocultar mensaje de completado
+    const allCompleteEl = document.getElementById('all-complete-msg');
+    if (allCompleteEl) {
+        if (total === missionCount) {
+            allCompleteEl.style.display = 'block';  // Mostrar si todas completadas
+        } else {
+            allCompleteEl.style.display = 'none';   // Ocultar si no
+        }
+    }
+}
+
+/* 
+================================================================================
+FUNCIÓN: updateBadge()
+================================================================================
+Actualiza el badge (insignia) en el botón de Daily Lab.
+
+El badge muestra:
+- Número de misiones completadas (ej: "2")
+- Marca de verificación (✓) si todas están completas
+- Oculto si no hay progreso
+*/
+function updateBadge() {
+    // Contar misiones completadas
+    const selectedIds = dailyLabData.selectedMissions.map(m => m.id);
+    const total = selectedIds.filter(id => dailyLabData.completed && dailyLabData.completed[id] === true).length;
+    const missionCount = dailyLabData.selectedMissions.length;
+    
+    const badge = document.getElementById('daily-lab-badge');
+
+    console.log('[DailyLab] Badge update:', total, '/', missionCount);
+
+    if (!badge) return;
+
+    // Lógica de visibilidad y contenido del badge
+    if (total > 0 && total < missionCount) {
+        // Progreso parcial: mostrar número
+        badge.style.display = 'flex';
+        badge.textContent = total;
+    } else if (total === missionCount && missionCount > 0) {
+        // Todo completado: mostrar check
+        badge.style.display = 'flex';
+        badge.textContent = '✓';
+    } else {
+        // Sin progreso: ocultar
+        badge.style.display = 'none';
+    }
+}
+
+/* 
+================================================================================
+FUNCIÓN: showLabFeedback(message)
+================================================================================
+Muestra un mensaje temporal de retroalimentación.
+
+Parámetros:
+- message: El texto a mostrar
+
+El mensaje aparece por 2.5 segundos y luego se oculta automáticamente.
+Se usa para notificar al usuario cuando completa una misión.
+*/
+function showLabFeedback(message) {
+    const feedback = document.getElementById('lab-feedback');
+    const text = document.getElementById('lab-feedback-text');
+
+    if (!feedback || !text) return;
+
+    // Configurar el mensaje
+    text.textContent = message;
+    text.style.cssText = 'font-size: 12px; font-weight: 600; color: #4ade80;';
+
+    // Mostrar el feedback
+    feedback.style.display = 'block';
+
+    // Ocultar después de 2.5 segundos
+    setTimeout(() => {
+        feedback.style.display = 'none';
+    }, 2500);
+}
+
+/* 
+================================================================================
+FUNCIÓN: launchConfetti()
+================================================================================
+Lanza una animación de confetti (papelitos de colores).
+
+Usa el elemento <canvas> para dibujar partículas animadas.
+Cada partícula tiene:
+- Posición (x, y)
+- Velocidad (vx, vy)
+- Color
+- Tamaño
+- Rotación
+
+La animación usa requestAnimationFrame para suavidad.
+*/
+function launchConfetti() {
+    // Obtener el canvas y su contexto 2D
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Establecer tamaño del canvas igual a la ventana
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.display = 'block';  // Hacer visible
+
+    // Colores disponibles para el confetti
+    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', 
+                    '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', 
+                    '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+    
+    // Array para almacenar todas las partículas
+    const particles = [];
+
+    // Crear 150 partículas
+    for (let i = 0; i < 150; i++) {
+        particles.push({
+            // Posición inicial:分布在 arriba de la pantalla
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            
+            // Velocidad: movimiento aleatorio
+            vx: (Math.random() - 0.5) * 4,  // Velocidad horizontal (-2 a 2)
+            vy: Math.random() * 3 + 2,       // Velocidad vertical (2 a 5)
+            
+            // Apariencia
+            color: colors[Math.floor(Math.random() * colors.length)],
+            size: Math.random() * 8 + 4,       // Tamaño (4 a 12)
+            rotation: Math.random() * 360,      // Rotación inicial
+            rotationSpeed: (Math.random() - 0.5) * 10  // Velocidad de rotación
+        });
+    }
+
+    let animationFrame;
+
+    // Función que se ejecuta en cada frame
+    function animate() {
+        // Limpiar el canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let allDone = true;  // Suponer que todos cayeron
+        
+        // Actualizar y dibujar cada partícula
+        particles.forEach(p => {
+            // Actualizar posición
+            p.x += p.vx;              // Mover horizontalmente
+            p.y += p.vy;              // Mover verticalmente
+            p.vy += 0.1;              // Gravedad (acelerar hacia abajo)
+            p.rotation += p.rotationSpeed;  // Rotar
+
+            // Verificar si la partícula aún está en pantalla
+            if (p.y < canvas.height) {
+                allDone = false;  // Al menos una partícula está visible
+            }
+
+            // Dibujar la partícula
+            ctx.save();           // Guardar estado del contexto
+            ctx.translate(p.x, p.y);      // Mover al punto de dibujo
+            ctx.rotate(p.rotation * Math.PI / 180);  // Rotar
+            ctx.fillStyle = p.color;       // Color de relleno
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);  // Dibujar cuadrado
+            ctx.restore();        // Restaurar estado
+        });
+
+        // Si hay partículas en pantalla, continuar animación
+        if (!allDone) {
+            animationFrame = requestAnimationFrame(animate);
+        } else {
+            // Todas cayeron → ocultar canvas
+            canvas.style.display = 'none';
+        }
+    }
+
+    // Iniciar animación
+    animate();
+    
+    // Detener después de 3 segundos (seguridad)
+    setTimeout(() => {
+        cancelAnimationFrame(animationFrame);
+        canvas.style.display = 'none';
+    }, 3000);
+}
+
+/* 
+================================================================================
+FUNCIÓN: completeMission(id)
+================================================================================
+Marca una misión como completada.
+
+Esta función es llamada por las diferentes herramientas cuando el usuario
+realiza una acción (ej: genera un PIN, usa Fibonacci, etc.)
+
+Parámetros:
+- id: El ID de la misión a completar
+
+Pasos:
+1. Validar que el ID sea válido
+2. Verificar que la misión esté en las seleccionadas de hoy
+3. Marcar como completada
+4. Guardar en localStorage
+5. Re-renderizar la UI
+6. Verificar si todas están completadas
+7. Si todas completadas → lanzar confetti
+*/
+window.completeMission = function(id) {
+    console.log('[DailyLab] completeMission called with:', id);
+
+    // === VALIDACIÓN ===
+    
+    // Verificar que el ID sea válido
+    if (!id || typeof id !== 'string') {
+        console.error('[DailyLab] Invalid mission ID:', id);
+        return;
+    }
+
+    // Lista de IDs válidos (para evitar errores de tipeo)
+    const VALID_MISSION_IDS = ['pin', 'password', 'longpwd', 'fibonacci', 
+                               'triangle', 'polygon', 'food', 'compare'];
+    
+    if (!VALID_MISSION_IDS.includes(id)) {
+        console.warn('[DailyLab] Unknown mission ID:', id);
+        return;
+    }
+
+    // Asegurar que el objeto completed existe
+    if (!dailyLabData.completed) {
+        dailyLabData.completed = {};
+    }
+
+    // === VERIFICAR SI LA MISIÓN ESTÁ EN LAS SELECCIONADAS DE HOY ===
+    
+    // Buscar la misión en el array de misiones seleccionadas
+    // .find() retorna el primer elemento que cumple la condición, o undefined
+    const mission = dailyLabData.selectedMissions.find(m => m.id === id);
+
+    if (!mission) {
+        // La misión no está en las seleccionadas para hoy
+        console.log('[DailyLab] Mission', id, 'NOT in today\'s selection');
+        return;
+    }
+
+    // === VERIFICAR SI YA ESTÁ COMPLETADA ===
+    
+    if (dailyLabData.completed[id] === true) {
+        console.log('[DailyLab] Mission', id, 'already completed');
+        return;
+    }
+
+    // === MARCAR COMO COMPLETADA ===
+    
+    dailyLabData.completed[id] = true;
+    console.log('[DailyLab] Marked:', id, 'as completed');
+
+    // Guardar en localStorage para persistencia
+    saveDailyLab();
+
+    // Re-renderizar la lista de misiones y el badge
+    renderMissions();
+    updateBadge();
+
+    // Mostrar feedback al usuario
+    showLabFeedback(`${mission.icon} ${mission.title}`);
+
+    // === VERIFICAR SI TODAS ESTÁN COMPLETADAS ===
+    
+    // Contar cuántas de las misiones seleccionadas están completadas
+    const selectedIds = dailyLabData.selectedMissions.map(m => m.id);
+    const total = selectedIds.filter(mid => dailyLabData.completed[mid] === true).length;
+    const missionCount = dailyLabData.selectedMissions.length;
+
+    console.log('[DailyLab] Progress:', total, '/', missionCount);
+
+    // Si todas están completadas Y no hemos mostrado el mensaje...
+    if (total === missionCount && !dailyLabData.allCompleteShown) {
+        console.log('[DailyLab] ALL MISSIONS COMPLETE!');
+        
+        // Marcar que ya mostramos el mensaje
+        dailyLabData.allCompleteShown = true;
+        saveDailyLab();
+        
+        // Después de 500ms, mostrar mensaje y confetti
+        setTimeout(() => {
+            showLabFeedback('All experiments complete!');
+            launchConfetti();
+        }, 500);
+    }
+};
+
+/* 
+================================================================================
+INICIALIZACIÓN
+================================================================================
+Cuando el DOM está completamente cargado, inicializar el Daily Lab.
+El evento 'DOMContentLoaded' se dispara cuando el navegador terminó de 
+construir el árbol DOM.
+*/
+document.addEventListener('DOMContentLoaded', initDailyLab);
+</script>
+
+</body>
+</html>
