@@ -18,7 +18,6 @@
 ### 🥗 Herramientas de Nutrición
 - **BMI Calculator** - Calcula tu Índice de Masa Corporal
 - **Food Rating** - Evalúa la saludabilidad de alimentos
-- **Food Comparator** - Compara alimentos lado a lado
 
 ### ⚡ Herramientas de Productividad
 - **Secure PIN Generator** - Genera PINs numéricos seguros

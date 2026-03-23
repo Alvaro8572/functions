@@ -501,86 +501,6 @@ const nutritionHTML = `
             </div>
         </div>
 
-        <!-- TARJETA: Food Comparator -->
-        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-pink-500">
-            <div class="flex items-center gap-2 mb-2">
-                <div class="p-2 bg-pink-500/20 rounded-lg text-pink-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-white">Food Comparator</h3>
-            </div>
-
-            <p class="text-sm text-slate-400">Compare two foods side by side.</p>
-
-            <div class="space-y-2">
-                <select id="food-a" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-pink-500 transition-colors">
-                    <option value="">Select Food A</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Hamburger">Hamburger</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Ham">Ham</option>
-                    <option value="White Rice">White Rice</option>
-                    <option value="Broccoli">Broccoli</option>
-                    <option value="Chocolate">Chocolate</option>
-                    <option value="Egg">Egg</option>
-                    <option value="Salmon">Salmon</option>
-                    <option value="French Fries">French Fries</option>
-                </select>
-                <select id="food-b" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-pink-500 transition-colors">
-                    <option value="">Select Food B</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Hamburger">Hamburger</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Ham">Ham</option>
-                    <option value="White Rice">White Rice</option>
-                    <option value="Broccoli">Broccoli</option>
-                    <option value="Chocolate">Chocolate</option>
-                    <option value="Egg">Egg</option>
-                    <option value="Salmon">Salmon</option>
-                    <option value="French Fries">French Fries</option>
-                </select>
-            </div>
-
-            <button onclick="compareFoods()" class="w-full py-2 bg-pink-600 hover:bg-pink-500 text-white rounded-lg font-semibold transition-colors text-sm">
-                Compare Foods
-            </button>
-
-            <div id="compare-result" class="hidden">
-                <!-- Grid de 2 columnas para comparar -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                        <p id="compare-name-a" class="text-center font-bold text-white mb-2"></p>
-                        <div class="text-xs text-slate-400 space-y-1">
-                            <p>Carbs: <span id="compare-carbs-a" class="text-white"></span>g</p>
-                            <p>Sugar: <span id="compare-sugar-a" class="text-white"></span>g</p>
-                            <p>Sat.Fat: <span id="compare-sfat-a" class="text-white"></span>g</p>
-                            <p>Fiber: <span id="compare-fiber-a" class="text-white"></span>g</p>
-                            <p>Protein: <span id="compare-protein-a" class="text-white"></span>g</p>
-                        </div>
-                        <p id="compare-score-a" class="text-center text-xl font-bold mono mt-2"></p>
-                    </div>
-                    <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
-                        <p id="compare-name-b" class="text-center font-bold text-white mb-2"></p>
-                        <div class="text-xs text-slate-400 space-y-1">
-                            <p>Carbs: <span id="compare-carbs-b" class="text-white"></span>g</p>
-                            <p>Sugar: <span id="compare-sugar-b" class="text-white"></span>g</p>
-                            <p>Sat.Fat: <span id="compare-sfat-b" class="text-white"></span>g</p>
-                            <p>Fiber: <span id="compare-fiber-b" class="text-white"></span>g</p>
-                            <p>Protein: <span id="compare-protein-b" class="text-white"></span>g</p>
-                        </div>
-                        <p id="compare-score-b" class="text-center text-xl font-bold mono mt-2"></p>
-                    </div>
-                </div>
-                <div id="compare-winner" class="bg-slate-800 rounded-lg p-4 border border-slate-700 text-center">
-                    <p id="compare-winner-text" class="text-xl font-bold mb-2"></p>
-                    <p id="compare-diff" class="text-sm text-slate-400 mb-2"></p>
-                    <p id="compare-reasons" class="text-sm text-slate-300"></p>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 `;
@@ -752,7 +672,9 @@ function loadSection(section) {
     // Configurar y mostrar contenedor de contenido
     if (container) {
         // Mostrar el contenedor
-        container.style.display = 'block';
+        container.style.display = 'flex';
+        container.style.flexDirection = 'column';
+        container.style.alignItems = 'center';
         
         // Añadir animación de entrada
         // animation: fadeIn 0.5s ease-in
@@ -1275,6 +1197,11 @@ function convertUnit() {
     // Mostrar resultado
     document.getElementById('unit-output').textContent = `${value} ${from} = ${formatted} ${to}`;
     document.getElementById('unit-result').classList.remove('hidden');
+    
+    // Marcar misión del conversor de unidades como completada
+    if (typeof window.completeMission === 'function') {
+        window.completeMission('unit');
+    }
 }
 
 // ================================================================================
@@ -1495,124 +1422,6 @@ function getScoreColor(score) {
     if (score >= 60) return "text-yellow-400";
     if (score >= 40) return "text-orange-400";
     return "text-red-400";
-}
-
-/*
-FUNCIÓN: compareFoods()
-----------------------------------------------------------------------
-Compara dos alimentos mostrando sus valores nutricionales y ganador.
-
-Pasos:
-1. Obtener alimentos seleccionados
-2. Calcular puntuación de cada uno
-3. Mostrar datos lado a lado
-4. Determinar y mostrar ganador
-*/
-function compareFoods() {
-    // Obtener valores seleccionados
-    const foodA = document.getElementById('food-a').value;
-    const foodB = document.getElementById('food-b').value;
-
-    // Validar selección
-    if (!foodA || !foodB) {
-        alert("Please select both foods to compare");
-        return;
-    }
-
-    // Obtener datos y calcular puntuaciones
-    const dataA = foodDatabase[foodA];
-    const dataB = foodDatabase[foodB];
-    const scoreA = calculateFoodScore(foodA);
-    const scoreB = calculateFoodScore(foodB);
-
-    // Actualizar nombres
-    document.getElementById('compare-name-a').textContent = foodA;
-    document.getElementById('compare-name-b').textContent = foodB;
-    
-    // Actualizar datos nutricionales del alimento A
-    document.getElementById('compare-carbs-a').textContent = dataA.carbs;
-    document.getElementById('compare-sugar-a').textContent = dataA.sugars;
-    document.getElementById('compare-sfat-a').textContent = dataA.saturated_fats;
-    document.getElementById('compare-fiber-a').textContent = dataA.fiber;
-    document.getElementById('compare-protein-a').textContent = dataA.protein;
-    
-    // Actualizar datos nutricionales del alimento B
-    document.getElementById('compare-carbs-b').textContent = dataB.carbs;
-    document.getElementById('compare-sugar-b').textContent = dataB.sugars;
-    document.getElementById('compare-sfat-b').textContent = dataB.saturated_fats;
-    document.getElementById('compare-fiber-b').textContent = dataB.fiber;
-    document.getElementById('compare-protein-b').textContent = dataB.protein;
-    
-    // Actualizar puntuaciones
-    document.getElementById('compare-score-a').textContent = `${scoreA} pts`;
-    document.getElementById('compare-score-b').textContent = `${scoreB} pts`;
-    
-    // Aplicar colores según puntuación
-    document.getElementById('compare-score-a').className = `text-xl font-bold mono ${getScoreColor(scoreA)}`;
-    document.getElementById('compare-score-b').className = `text-xl font-bold mono ${getScoreColor(scoreB)}`;
-
-    // Determinar ganador
-    let winner, loser, winnerScore, loserScore;
-    
-    if (scoreA > scoreB) {
-        winner = foodA;
-        loser = foodB;
-        winnerScore = scoreA;
-        loserScore = scoreB;
-    } else if (scoreB > scoreA) {
-        winner = foodB;
-        loser = foodA;
-        winnerScore = scoreB;
-        loserScore = scoreA;
-    } else {
-        winner = null;  // Empate
-    }
-
-    // Referencias a elementos de resultado
-    const winnerText = document.getElementById('compare-winner-text');
-    const diffText = document.getElementById('compare-diff');
-    const reasonsText = document.getElementById('compare-reasons');
-    
-    if (winner) {
-        // Mostrar ganador
-        const diff = winnerScore - loserScore;
-        winnerText.textContent = `Winner: ${winner}`;
-        winnerText.className = "text-xl font-bold mb-2 text-green-400";
-        diffText.textContent = `+${diff} points ahead`;
-        
-        // Generar razones
-        const reasons = [];
-        
-        // Comparar cada nutriente
-        if (dataA.sugars < dataB.sugars) reasons.push("Lower sugar content");
-        if (dataA.protein > dataB.protein) reasons.push("Higher protein content");
-        if (dataA.fiber > dataB.fiber) reasons.push("More fiber");
-        if (dataA.saturated_fats < dataB.saturated_fats) reasons.push("Lower saturated fat");
-        if (dataA.carbs < dataB.carbs) reasons.push("Lower carbohydrate load");
-        
-        // Razones para B si B ganó
-        if (dataB.sugars < dataA.sugars) reasons.push("Lower sugar content");
-        if (dataB.protein > dataA.protein) reasons.push("Higher protein content");
-        if (dataB.fiber > dataA.fiber) reasons.push("More fiber");
-        if (dataB.saturated_fats < dataA.saturated_fats) reasons.push("Lower saturated fat");
-        if (dataB.carbs < dataA.carbs) reasons.push("Lower carbohydrate load");
-        
-        reasonsText.textContent = reasons.length > 0 ? `Reason: ${reasons.join(" | ")}` : "Close nutritional match";
-    } else {
-        // Empate
-        winnerText.textContent = "It's a tie!";
-        winnerText.className = "text-xl font-bold mb-2 text-yellow-400";
-        diffText.textContent = "Both foods have the same score";
-        reasonsText.textContent = "";
-    }
-
-    // Mostrar resultados
-    document.getElementById('compare-result').classList.remove('hidden');
-    
-    // Marcar misión como completada
-    if (typeof window.completeMission === 'function') {
-        window.completeMission('compare');
-    }
 }
 
 // ================================================================================
