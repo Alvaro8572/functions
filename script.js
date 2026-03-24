@@ -31,14 +31,10 @@ ESTRUCTURA DEL ARCHIVO:
    - convertUnit() - Convierte unidades
    - animateValue() - Animación de números
 
-5. Herramientas de Nutrición
-   - calculateIMC() - Calcula IMC
-   - rateFood() - Evalúa alimentos
-   - compareFoods() - Compara alimentos
-   - calculateFoodScore() - Calcula puntuación nutricional
-   - foodDatabase - Base de datos de alimentos
+ 5. Herramientas de Nutrición
+    - calculateIMC() - Calcula IMC
 
-6. Herramientas de Productividad
+ 6. Herramientas de Productividad
    - generatePIN() - Genera PIN seguro
    - isValidPIN() - Valida PINs
    - copyPIN() - Copia PIN al portapapeles
@@ -418,8 +414,6 @@ TEMPLATE: nutritionHTML
 Contiene el HTML para la sección de herramientas de nutrición.
 Incluye:
 - BMI Calculator: Calculadora de Índice de Masa Corporal
-- Food Rating: Evaluador de salud de alimentos
-- Food Comparator: Comparador de alimentos
 */
 const nutritionHTML = `
 <div>
@@ -462,42 +456,6 @@ const nutritionHTML = `
                 <p class="text-xs text-slate-500">Your BMI is:</p>
                 <p id="imc-value" class="text-2xl font-bold text-white mono"></p>
                 <p id="imc-category" class="text-sm mt-1"></p>
-            </div>
-        </div>
-
-        <!-- TARJETA: Food Rating -->
-        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-orange-500">
-            <div class="flex items-center gap-2 mb-2">
-                <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-white">Food Rating</h3>
-            </div>
-
-            <p class="text-sm text-slate-400">Evaluate if a food is healthy.</p>
-
-            <div class="space-y-2">
-                <input type="number" id="food-carbs" placeholder="Carbohydrates (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
-                <input type="number" id="food-sugar" placeholder="Sugars (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
-                <input type="number" id="food-saturated" placeholder="Saturated fats (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
-                <input type="number" id="food-fiber" placeholder="Fiber (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
-                <input type="number" id="food-protein" placeholder="Protein (g)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 transition-colors">
-            </div>
-
-            <button onclick="rateFood()" class="w-full py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-semibold transition-colors text-sm">
-                Evaluate Food
-            </button>
-
-            <div id="food-result" class="hidden p-4 rounded-lg text-center bg-slate-800 border border-slate-700">
-                <p id="food-score" class="text-2xl font-bold text-white mono"></p>
-                <!-- Barra de progreso -->
-                <div id="food-bar-container" class="w-full bg-slate-700 rounded-full h-3 mt-3 overflow-hidden">
-                    <div id="food-bar" class="h-full rounded-full transition-all duration-500"></div>
-                </div>
-                <p id="food-rating" class="text-xl font-bold mt-2"></p>
-                <p id="food-feedback" class="text-sm text-slate-300 mt-2"></p>
             </div>
         </div>
 
@@ -1262,17 +1220,14 @@ function calculateIMC() {
     document.getElementById('imc-category').textContent = category;
     document.getElementById('imc-category').className = `text-sm mt-1 ${categoryClass}`;
     document.getElementById('imc-result').classList.remove('hidden');
+    
+    // Marcar misión del BMI como completada
+    if (typeof window.completeMission === 'function') {
+        window.completeMission('bmi');
+    }
 }
 
 /*
-FUNCIÓN: rateFood()
-----------------------------------------------------------------------
-Evalúa la saludabilidad de un alimento según sus nutrientes.
-
-Puntuación:
-- Base: 100 puntos
-- Resta por azúcares, grasas saturadas, carbohidratos
-- Suma por fibra, proteína
 
 Resultado:
 - >= 80: Very Healthy
@@ -1350,78 +1305,6 @@ function rateFood() {
     if (typeof window.completeMission === 'function') {
         window.completeMission('food');
     }
-}
-
-/*
-OBJETO: foodDatabase
-----------------------------------------------------------------------
-Base de datos de información nutricional de alimentos comunes.
-
-Cada alimento tiene:
-- carbs: Carbohidratos (g)
-- sugars: Azúcares (g)
-- saturated_fats: Grasas saturadas (g)
-- fiber: Fibra (g)
-- protein: Proteína (g)
-
-Valores por cada 100g del alimento.
-*/
-const foodDatabase = {
-    "Pizza": { carbs: 28, sugars: 3.5, saturated_fats: 4.5, fiber: 2.2, protein: 11 },
-    "Hamburger": { carbs: 26, sugars: 5, saturated_fats: 8, fiber: 1.5, protein: 16 },
-    "Apple": { carbs: 14, sugars: 10, saturated_fats: 0, fiber: 2.5, protein: 0.3 },
-    "Ham": { carbs: 1.5, sugars: 1, saturated_fats: 3.8, fiber: 0, protein: 18 },
-    "White Rice": { carbs: 28, sugars: 0.1, saturated_fats: 0, fiber: 0.4, protein: 2.7 },
-    "Broccoli": { carbs: 7, sugars: 1.7, saturated_fats: 0, fiber: 2.6, protein: 2.8 },
-    "Chocolate": { carbs: 46, sugars: 24, saturated_fats: 14, fiber: 3, protein: 5 },
-    "Egg": { carbs: 1.1, sugars: 1.1, saturated_fats: 3.3, fiber: 0, protein: 13 },
-    "Salmon": { carbs: 0, sugars: 0, saturated_fats: 3.1, fiber: 0, protein: 20 },
-    "French Fries": { carbs: 35, sugars: 0.3, saturated_fats: 2.3, fiber: 3.5, protein: 3.4 }
-};
-
-/*
-FUNCIÓN: calculateFoodScore(food)
-----------------------------------------------------------------------
-Calcula la puntuación nutricional de un alimento de la base de datos.
-
-Parámetros:
-- food: Nombre del alimento (key en foodDatabase)
-
-Retorna:
-- Puntuación de 0 a 100
-*/
-function calculateFoodScore(food) {
-    // Obtener datos del alimento
-    const data = foodDatabase[food];
-    
-    // Calcular puntuación (misma fórmula que rateFood)
-    const score = 100 
-        - (3 * data.sugars)           // 3 puntos por cada g de azúcar
-        - (4 * data.saturated_fats)   // 4 puntos por cada g de grasa saturada
-        - (0.5 * data.carbs)          // 0.5 puntos por cada g de carbohidrato
-        + (4 * data.fiber)            // 4 puntos por cada g de fibra
-        + (2 * data.protein);          // 2 puntos por cada g de proteína
-    
-    // Limitar y redondear
-    return Math.max(0, Math.min(100, Math.round(score)));
-}
-
-/*
-FUNCIÓN: getScoreColor(score)
-----------------------------------------------------------------------
-Retorna el color apropiado según la puntuación.
-
-Parámetros:
-- score: Número de 0 a 100
-
-Retorna:
-- Clase CSS de color (Tailwind)
-*/
-function getScoreColor(score) {
-    if (score >= 80) return "text-green-400";
-    if (score >= 60) return "text-yellow-400";
-    if (score >= 40) return "text-orange-400";
-    return "text-red-400";
 }
 
 // ================================================================================

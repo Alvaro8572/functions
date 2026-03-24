@@ -42,7 +42,6 @@
 | Herramienta | Descripción |
 |-------------|-------------|
 | **BMI Calculator** | Calcula el Índice de Masa Corporal (IMC) con categorización |
-| **Food Rating** | Evalúa la salubridad de un alimento según sus nutrientes |
 
 ### 3. .productivity_tools
 
