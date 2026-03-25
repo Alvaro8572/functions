@@ -64,7 +64,7 @@ Se accede mediante: translations[currentLang][clave]
 */
 const translations = {
     en: {
-        appTitle: ".functions",
+        appTitle: "functions",
         appSubtitle: "Tools for math, nutrition & productivity",
         
         // Main menu
@@ -173,7 +173,7 @@ const translations = {
         invalid_input: "Please enter valid numbers"
     },
     es: {
-        appTitle: ".functions",
+        appTitle: "functions",
         appSubtitle: "Herramientas de matemáticas, nutrición y productividad",
         
         // Main menu
@@ -494,18 +494,8 @@ function translateSection() {
         });
     });
     
-    // Traducir títulos de las secciones
-    const sectionTitle = container.querySelector('.section-title');
-    if (sectionTitle) {
-        const text = sectionTitle.textContent;
-        if (text.includes('.math')) {
-            sectionTitle.textContent = '.' + t('menu_math').toLowerCase().replace(/ /g, '_');
-        } else if (text.includes('.nutrition')) {
-            sectionTitle.textContent = '.' + t('menu_nutrition').toLowerCase().replace(/ /g, '_');
-        } else if (text.includes('.productivity')) {
-            sectionTitle.textContent = '.' + t('menu_productivity').toLowerCase().replace(/ /g, '_');
-        }
-    }
+    // NOT translating section titles - they should stay as:
+    // .math_tools, .nutrition_tools, .productivity_tools
 }
 
 // ================================================================================
@@ -1912,26 +1902,26 @@ Cada elemento tiene:
 Estas palabras son interesantes y poco comunes.
 */
 const wordList = [
-    { word: "Alienation", meaning: "The feeling of being isolated or separated from others, often causing emotional pain." },
-    { word: "Serendipity", meaning: "The occurrence of events by chance in a happy or beneficial way." },
-    { word: "Idoneous", meaning: "Highly appropriate or suitable for a particular purpose or occasion." },
-    { word: "Nostalgia", meaning: "A sentimental longing or affection for the past." },
-    { word: "Ephemeral", meaning: "Lasting for a very short time." },
-    { word: "Paradox", meaning: "A statement or situation that contains two opposite ideas but is still true." },
-    { word: "Ineffable", meaning: "Too great or extreme to be expressed in words." },
-    { word: "Solitude", meaning: "The state of being alone without feeling lonely." },
-    { word: "Ambiguous", meaning: "Open to more than one interpretation; unclear." },
-    { word: "Obsession", meaning: "An idea or thought that dominates someone's mind." },
-    { word: "Euphoria", meaning: "A feeling of intense excitement and happiness." },
-    { word: "Resilience", meaning: "The ability to recover quickly from difficulties." },
-    { word: "Mellifluous", meaning: "Sweet or musical; pleasant to hear." },
-    { word: "Petrichor", meaning: "The pleasant smell after rain falls on dry earth." },
-    { word: "Saudade", meaning: "A deep emotional state of longing for something or someone." },
-    { word: "Wanderlust", meaning: "A strong desire to travel and explore the world." },
-    { word: "Luminous", meaning: "Full of or shedding light; bright or shining." },
-    { word: "Ethereal", meaning: "Extremely delicate and light in a way that seems not of this world." },
-    { word: "Surreptitious", meaning: "Kept secret, especially because it would not be approved of." },
-    { word: "Halcyon", meaning: "Denoting a period of time in the past that was idyllically happy." }
+    { word: "Alienation", meaning: "Sentimiento de aislamiento o separación de los demás, que suele causar dolor emocional." },
+    { word: "Serendipity", meaning: "Acontecimiento feliz que acontece por azar; encontrar algo valioso sin buscarlo." },
+    { word: "Idoneous", meaning: "Adecuado o apropiado para un propósito particular." },
+    { word: "Nostalgia", meaning: "Sentimiento de pena por la pérdida de algo querido o por el recuerdo de un tiempo pasado." },
+    { word: "Ephemeral", meaning: "Que dura muy poco tiempo; pasajero." },
+    { word: "Paradox", meaning: "Afirmación aparentemente contradictoria que puede ser verdadera." },
+    { word: "Ineffable", meaning: "Que no puede expresarse con palabras; indecible." },
+    { word: "Solitude", meaning: "Estado de estar solo sin sentirse lonely." },
+    { word: "Ambiguous", meaning: "Que admite dos o más interpretaciones; oscuro o impreciso." },
+    { word: "Obsession", meaning: "Preocupación persistente que domina el pensamiento de una persona." },
+    { word: "Euphoria", meaning: "Estado de ánimo caracterizado por una intensa sensación de bienestar y alegría." },
+    { word: "Resilience", meaning: "Capacidad de adaptarse y recuperarse rápidamente ante la adversidad." },
+    { word: "Mellifluous", meaning: "De sonido dulce y armonioso; agradable al oído." },
+    { word: "Petrichor", meaning: "Aroma agradable que despide la tierra cuando cae la lluvia después de un período seco." },
+    { word: "Saudade", meaning: "Sentimiento profundo de nostalgia o anhelo por algo o alguien ausente." },
+    { word: "Wanderlust", meaning: "Deseo intenso de viajar y explorar nuevos lugares." },
+    { word: "Luminous", meaning: "Que emite luz; iluminado o brillante." },
+    { word: "Ethereal", meaning: "Extremadamente delicado y ligero, como si no fuera de este mundo." },
+    { word: "Surreptitious", meaning: "Hecho de manera secreta, sin ser observado ni detectado." },
+    { word: "Halcyon", meaning: "Período del pasado caracterizado por dicha y serenidad perfectas." }
 ];
 
 /*
