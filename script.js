@@ -53,6 +53,462 @@ CONCEPTOS CLAVE:
 */
 
 // ================================================================================
+// SISTEMA DE TRADUCCIONES (i18n)
+// ================================================================================
+
+/*
+OBJETO: translations
+----------------------------------------------------------------------
+Contiene todas las traducciones de la aplicación.
+Se accede mediante: translations[currentLang][clave]
+*/
+const translations = {
+    en: {
+        appTitle: ".functions",
+        appSubtitle: "Tools for math, nutrition & productivity",
+        
+        // Main menu
+        menu_math: "Mathematics",
+        menu_nutrition: "Nutrition",
+        menu_productivity: "Productivity",
+        
+        // Math tools
+        triangle: "Triangle 180°",
+        triangle_desc: "Generate 3 valid interior angles",
+        generate_angles: "Generate Angles",
+        fibonacci: "Fibonacci",
+        fibonacci_desc: "Sequence (1 ≤ n ≤ 100)",
+        n_placeholder: "n",
+        calculate: "Calculate",
+        fibonacci_error: "Error: n must be between 1 and 100.",
+        fibonacci_placeholder: "Sequence will appear here...",
+        polygons: "Polygons",
+        polygons_desc: "Name by sides (3-20)",
+        sides_placeholder: "Sides",
+        search: "Search",
+        result_label: "Result",
+        polygon_placeholder: "Polygon name",
+        binomial: "Binomial Generator",
+        binomial_desc: "Generate (a ± b)^2 expressions",
+        generate: "Generate",
+        polynomial: "Polynomial Generator",
+        polynomial_desc: "Generate polynomial expressions",
+        
+        // Unit Converter
+        unit_converter: "Unit Converter",
+        value_placeholder: "Value",
+        from_label: "From",
+        to_label: "To",
+        weight: "Weight",
+        length: "Length",
+        temperature: "Temperature",
+        grams: "Grams (g)",
+        kilograms: "Kilograms (kg)",
+        pounds: "Pounds (lb)",
+        ounces: "Ounces (oz)",
+        meters: "Meters (m)",
+        kilometers: "Kilometers (km)",
+        miles: "Miles (mi)",
+        feet: "Feet (ft)",
+        inches: "Inches (in)",
+        celsius: "Celsius (°C)",
+        fahrenheit: "Fahrenheit (°F)",
+        kelvin: "Kelvin (K)",
+        convert: "Convert",
+        
+        // Nutrition tools
+        bmi_calculator: "BMI Calculator",
+        bmi_desc: "Calculate your Body Mass Index",
+        weight_kg: "Weight (kg)",
+        height_cm: "Height (cm)",
+        calculate_bmi: "Calculate BMI",
+        your_bmi: "Your BMI",
+        underweight: "Underweight",
+        normal: "Normal",
+        overweight: "Overweight",
+        obesity: "Obesity",
+        
+        // Productivity tools
+        pin_generator: "Secure PIN Generator",
+        pin_desc: "Generate strong numeric PINs for mobile devices",
+        pin_length: "PIN Length",
+        generate_pin: "Generate PIN",
+        word_generator: "Word Generator",
+        word_desc: "Discover interesting English words",
+        generate_word: "Generate Word",
+        word_meaning: "Meaning",
+        password_generator: "Password Generator",
+        password_desc: "Generate a strong 16-character password",
+        password_length: "Password Length",
+        generate_password: "Generate",
+        copied: "Copied!",
+        
+        // Daily Lab
+        daily_lab: "Daily Lab",
+        daily_lab_desc: "Complete today's experiments",
+        mission_complete: "Mission Complete!",
+        all_complete: "All missions completed!",
+        progress: "Progress",
+        
+        // Missions
+        mission_pin: "Generate a PIN",
+        mission_password: "Generate any password",
+        mission_longpwd: "Generate a long password (10+)",
+        mission_fibonacci: "Use the Fibonacci generator",
+        mission_triangle: "Generate triangle angles",
+        mission_polygon: "Search for a polygon",
+        mission_bmi: "Calculate your BMI",
+        mission_unit: "Use the Unit Converter",
+        
+        // Settings
+        settings: "Settings",
+        language: "Language",
+        english: "English",
+        spanish: "Spanish",
+        
+        // Errors
+        error_load: "App failed to load. Check console.",
+        enter_value: "Please enter a value",
+        select_units: "Please select both units",
+        invalid_input: "Please enter valid numbers"
+    },
+    es: {
+        appTitle: ".functions",
+        appSubtitle: "Herramientas de matemáticas, nutrición y productividad",
+        
+        // Main menu
+        menu_math: "Matemáticas",
+        menu_nutrition: "Nutrición",
+        menu_productivity: "Productividad",
+        
+        // Math tools
+        triangle: "Triángulo 180°",
+        triangle_desc: "Genera 3 ángulos internos válidos",
+        generate_angles: "Generar Ángulos",
+        fibonacci: "Fibonacci",
+        fibonacci_desc: "Secuencia (1 ≤ n ≤ 100)",
+        n_placeholder: "n",
+        calculate: "Calcular",
+        fibonacci_error: "Error: n debe estar entre 1 y 100.",
+        fibonacci_placeholder: "La secuencia aparecerá aquí...",
+        polygons: "Polígonos",
+        polygons_desc: "Nombre por lados (3-20)",
+        sides_placeholder: "Lados",
+        search: "Buscar",
+        result_label: "Resultado",
+        polygon_placeholder: "Nombre del polígono",
+        binomial: "Generador Binomial",
+        binomial_desc: "Genera expresiones (a ± b)^2",
+        generate: "Generar",
+        polynomial: "Generador Polinomial",
+        polynomial_desc: "Genera expresiones polinómicas",
+        
+        // Unit Converter
+        unit_converter: "Conversor de Unidades",
+        value_placeholder: "Valor",
+        from_label: "De",
+        to_label: "A",
+        weight: "Peso",
+        length: "Longitud",
+        temperature: "Temperatura",
+        grams: "Gramos (g)",
+        kilograms: "Kilogramos (kg)",
+        pounds: "Libras (lb)",
+        ounces: "Onzas (oz)",
+        meters: "Metros (m)",
+        kilometers: "Kilómetros (km)",
+        miles: "Millas (mi)",
+        feet: "Pies (ft)",
+        inches: "Pulgadas (in)",
+        celsius: "Celsius (°C)",
+        fahrenheit: "Fahrenheit (°F)",
+        kelvin: "Kelvin (K)",
+        convert: "Convertir",
+        
+        // Nutrition tools
+        bmi_calculator: "Calculadora de IMC",
+        bmi_desc: "Calcula tu Índice de Masa Corporal",
+        weight_kg: "Peso (kg)",
+        height_cm: "Altura (cm)",
+        calculate_bmi: "Calcular IMC",
+        your_bmi: "Tu IMC",
+        underweight: "Bajo peso",
+        normal: "Normal",
+        overweight: "Sobrepeso",
+        obesity: "Obesidad",
+        
+        // Productivity tools
+        pin_generator: "Generador de PIN Seguro",
+        pin_desc: "Genera PINs numéricos seguros para móviles",
+        pin_length: "Longitud del PIN",
+        generate_pin: "Generar PIN",
+        word_generator: "Generador de Palabras",
+        word_desc: "Descubre palabras interesantes en inglés",
+        generate_word: "Generar Palabra",
+        word_meaning: "Significado",
+        password_generator: "Generador de Contraseñas",
+        password_desc: "Genera una contraseña fuerte de 16 caracteres",
+        password_length: "Longitud de Contraseña",
+        generate_password: "Generar",
+        copied: "¡Copiado!",
+        
+        // Daily Lab
+        daily_lab: "Daily Lab",
+        daily_lab_desc: "Completa los experimentos de hoy",
+        mission_complete: "¡Misión Completada!",
+        all_complete: "¡Todas las misiones completadas!",
+        progress: "Progreso",
+        
+        // Missions
+        mission_pin: "Generar un PIN",
+        mission_password: "Generar cualquier contraseña",
+        mission_longpwd: "Generar contraseña larga (10+)",
+        mission_fibonacci: "Usar el generador de Fibonacci",
+        mission_triangle: "Generar ángulos de triángulo",
+        mission_polygon: "Buscar un polígono",
+        mission_bmi: "Calcula tu IMC",
+        mission_unit: "Usar el Conversor de Unidades",
+        
+        // Settings
+        settings: "Configuración",
+        language: "Idioma",
+        english: "Inglés",
+        spanish: "Español",
+        
+        // Errors
+        error_load: "La app no pudo cargar. Revisa la consola.",
+        enter_value: "Por favor ingresa un valor",
+        select_units: "Por favor selecciona ambas unidades",
+        invalid_input: "Por favor ingresa números válidos"
+    }
+};
+
+// Idioma actual (se carga desde localStorage o usa inglés por defecto)
+let currentLang = localStorage.getItem("lang") || "en";
+
+/*
+FUNCIÓN: t(key)
+----------------------------------------------------------------------
+Retorna la traducción para la clave dada en el idioma actual.
+
+Parámetros:
+- key: Clave de traducción (ej: "menu_math", "bmi_calculator")
+
+Retorna:
+- String con la traducción
+*/
+function t(key) {
+    return translations[currentLang][key] || translations["en"][key] || key;
+}
+
+/*
+FUNCIÓN: setLanguage(lang)
+----------------------------------------------------------------------
+Cambia el idioma de la aplicación.
+
+Parámetros:
+- lang: "en" o "es"
+
+Acciones:
+1. Guarda el idioma en localStorage
+2. Actualiza la variable currentLang
+3. Actualiza todos los textos visibles
+4. Recarga la sección actual
+*/
+function setLanguage(lang) {
+    if (lang !== "en" && lang !== "es") return;
+    
+    currentLang = lang;
+    localStorage.setItem("lang", lang);
+    
+    // Actualizar textos de la UI
+    updateUITexts();
+    
+    // Si hay una sección cargada, recargarla
+    const container = document.getElementById('content-container');
+    if (container && container.style.display !== 'none') {
+        // Determinar qué sección está activa
+        const activeSection = container.querySelector('.section-title');
+        if (activeSection) {
+            if (activeSection.textContent.includes('.math') || activeSection.textContent.includes('máticas')) {
+                loadSection('math');
+            } else if (activeSection.textContent.includes('.nutrition') || activeSection.textContent.includes('trición')) {
+                loadSection('nutrition');
+            } else if (activeSection.textContent.includes('.productivity') || activeSection.textContent.includes('ductividad')) {
+                loadSection('productivity');
+            }
+        }
+    }
+    
+    // Actualizar el selector de idioma
+    const langSelector = document.getElementById('lang-selector');
+    if (langSelector) {
+        langSelector.value = lang;
+    }
+}
+
+/*
+FUNCIÓN: updateUITexts()
+----------------------------------------------------------------------
+Actualiza todos los textos estáticos de la interfaz.
+Se llama cuando se cambia el idioma.
+*/
+function updateUITexts() {
+    // Título de la app
+    const appTitle = document.getElementById('app-title');
+    if (appTitle) appTitle.textContent = t('appTitle');
+    
+    const appSubtitle = document.getElementById('app-subtitle');
+    if (appSubtitle) appSubtitle.textContent = t('appSubtitle');
+    
+    // Botones del menú principal
+    const menuMath = document.getElementById('menu-math');
+    if (menuMath) menuMath.textContent = t('menu_math');
+    
+    const menuNutrition = document.getElementById('menu-nutrition');
+    if (menuNutrition) menuNutrition.textContent = t('menu_nutrition');
+    
+    const menuProductivity = document.getElementById('menu-productivity');
+    if (menuProductivity) menuProductivity.textContent = t('menu_productivity');
+    
+    // Daily Lab
+    const dailyLabTitle = document.getElementById('daily-lab-title');
+    if (dailyLabTitle) dailyLabTitle.textContent = t('daily_lab');
+    
+    const dailyLabDesc = document.getElementById('daily-lab-desc');
+    if (dailyLabDesc) dailyLabDesc.textContent = t('daily_lab_desc');
+    
+    const progressLabel = document.getElementById('progress-label');
+    if (progressLabel) progressLabel.textContent = t('progress');
+    
+    // Settings
+    const langLabel = document.getElementById('lang-label');
+    if (langLabel) langLabel.textContent = t('language');
+}
+
+/*
+FUNCIÓN: translateSection()
+----------------------------------------------------------------------
+Traduce todos los elementos de la sección actualmente visible.
+Utiliza mapeo de contenido para traducir elementos comunes.
+*/
+function translateSection() {
+    const container = document.getElementById('content-container');
+    if (!container) return;
+    
+    // Mapeo de texto a clave de traducción
+    const textMappings = {
+        // Math tools
+        "Triangle 180°": "triangle",
+        "Generate 3 valid interior angles.": "triangle_desc",
+        "Generate Angles": "generate_angles",
+        "Fibonacci": "fibonacci",
+        "Sequence (1 ≤ n ≤ 100).": "fibonacci_desc",
+        "Calculate": "calculate",
+        "Error: n must be between 1 and 100.": "fibonacci_error",
+        "Sequence will appear here...": "fibonacci_placeholder",
+        "Polygons": "polygons",
+        "Name by sides (3-20).": "polygons_desc",
+        "Search": "search",
+        "Result": "result_label",
+        "Polygon name": "polygon_placeholder",
+        "Binomial Generator": "binomial",
+        "Generate (a ± b)^2 expressions.": "binomial_desc",
+        "Generate": "generate",
+        "Polynomial Generator": "polynomial",
+        "Generate polynomial expressions.": "polynomial_desc",
+        
+        // Unit Converter
+        "Unit Converter": "unit_converter",
+        "Value": "value_placeholder",
+        "From": "from_label",
+        "To": "to_label",
+        "Weight": "weight",
+        "Length": "length",
+        "Temperature": "temperature",
+        "Grams (g)": "grams",
+        "Kilograms (kg)": "kilograms",
+        "Pounds (lb)": "pounds",
+        "Ounces (oz)": "ounces",
+        "Meters (m)": "meters",
+        "Kilometers (km)": "kilometers",
+        "Miles (mi)": "miles",
+        "Feet (ft)": "feet",
+        "Inches (in)": "inches",
+        "Celsius (°C)": "celsius",
+        "Fahrenheit (°F)": "fahrenheit",
+        "Kelvin (K)": "kelvin",
+        "Convert": "convert",
+        
+        // Nutrition
+        "BMI Calculator": "bmi_calculator",
+        "Calculate your Body Mass Index": "bmi_desc",
+        "Weight (kg)": "weight_kg",
+        "Height (cm)": "height_cm",
+        "Calculate BMI": "calculate_bmi",
+        "Your BMI": "your_bmi",
+        "Underweight": "underweight",
+        "Normal": "normal",
+        "Overweight": "overweight",
+        "Obesity": "obesity",
+        
+        // Productivity
+        "Secure PIN Generator": "pin_generator",
+        "Generate strong numeric PINs for mobile devices": "pin_desc",
+        "PIN Length": "pin_length",
+        "Generate PIN": "generate_pin",
+        "Word Generator": "word_generator",
+        "Discover interesting English words": "word_desc",
+        "Generate Word": "generate_word",
+        "Meaning": "word_meaning",
+        "Password Generator": "password_generator",
+        "Generate a strong 16-character password": "password_desc",
+        "Password Length": "password_length",
+        "Copied!": "copied"
+    };
+    
+    // Traducir elementos por contenido de texto
+    const elements = container.querySelectorAll('h3, p, button, span, label');
+    elements.forEach(el => {
+        const text = el.textContent.trim();
+        if (textMappings[text]) {
+            el.textContent = t(textMappings[text]);
+        }
+    });
+    
+    // Traducir placeholders
+    const inputElements = container.querySelectorAll('input, select');
+    inputElements.forEach(el => {
+        const placeholder = el.placeholder;
+        if (placeholder && textMappings[placeholder]) {
+            el.placeholder = t(textMappings[placeholder]);
+        }
+        
+        // Traducir opciones de select
+        const options = el.querySelectorAll('option');
+        options.forEach(opt => {
+            const optText = opt.textContent;
+            if (textMappings[optText]) {
+                opt.textContent = t(textMappings[optText]);
+            }
+        });
+    });
+    
+    // Traducir títulos de las secciones
+    const sectionTitle = container.querySelector('.section-title');
+    if (sectionTitle) {
+        const text = sectionTitle.textContent;
+        if (text.includes('.math')) {
+            sectionTitle.textContent = '.' + t('menu_math').toLowerCase().replace(/ /g, '_');
+        } else if (text.includes('.nutrition')) {
+            sectionTitle.textContent = '.' + t('menu_nutrition').toLowerCase().replace(/ /g, '_');
+        } else if (text.includes('.productivity')) {
+            sectionTitle.textContent = '.' + t('menu_productivity').toLowerCase().replace(/ /g, '_');
+        }
+    }
+}
+
+// ================================================================================
 // SISTEMA DE RENDERIZADO INICIAL (FALLBACK)
 // ================================================================================
 // Este código se ejecuta primero para garantizar que siempre haya contenido visible.
@@ -648,6 +1104,9 @@ function loadSection(section) {
         } else if (section === 'productivity') {
             container.innerHTML = productivityHTML;
         }
+        
+        // Traducir la sección cargada
+        translateSection();
     }
     
     console.log("App: Section loaded");

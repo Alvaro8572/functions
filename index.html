@@ -18,7 +18,7 @@
     El <head> contiene información sobre la página que no es visible directamente,
     pero es necesaria para que la página funcione correctamente.
     -->
-    <head></head>
+    <head>
     <!-- Título que aparece en la pestaña del navegador -->
     <title>.functions</title>
 
@@ -128,7 +128,7 @@ Por qué #app:
             <span>: Contenedor inline para aplicar estilo a parte del texto
             El punto "." tiene un color azul (#3b82f6) para destacar
             -->
-            <span style="color: #3b82f6;">.</span>functions
+            <span style="color: #3b82f6;">.</span><span id="app-title">functions</span>
         </h1>
 
         <!-- 
@@ -143,6 +143,41 @@ Por qué #app:
             System Ready. Select Module.
         </p>
     </header>
+
+    <!-- =========================================================================
+    SETTINGS PANEL (Panel de Configuración)
+    =========================================================================
+    Selector de idioma en la esquina superior derecha.
+    -->
+    <div style="
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 100;
+    ">
+        <label id="lang-label" style="color: #94a3b8; font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+            Language
+        </label>
+        <select id="lang-selector" 
+            onchange="setLanguage(this.value)"
+            style="
+                background: rgba(30, 41, 59, 0.8);
+                color: white;
+                border: 1px solid #475569;
+                border-radius: 6px;
+                padding: 4px 8px;
+                font-size: 12px;
+                font-family: 'JetBrains Mono', monospace;
+                cursor: pointer;
+            "
+        >
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+        </select>
+    </div>
 
     <!-- =========================================================================
     MENÚ PRINCIPAL (#main-menu)
@@ -175,6 +210,7 @@ Por qué #app:
         -->
         <button 
             onclick="loadSection('math')" 
+            id="menu-math"
             style="
                 padding: 16px 32px;           /* Espacio interno: 16px vertical, 32px horizontal */
                 border-radius: 16px;            /* Bordes redondeados (16px de radio) */
@@ -217,6 +253,7 @@ Por qué #app:
         -->
         <button 
             onclick="loadSection('nutrition')" 
+            id="menu-nutrition"
             style="
                 padding: 16px 32px;
                 border-radius: 16px;
@@ -250,6 +287,7 @@ Por qué #app:
         -->
         <button 
             onclick="loadSection('productivity')" 
+            id="menu-productivity"
             style="
                 padding: 16px 32px;
                 border-radius: 16px;
@@ -323,8 +361,7 @@ Por qué #app:
         id="content-container" 
         style="
             width: 100%;                      /* Ocupa todo el ancho */
-            max-width: 800px;                /* Ancho máximo para evitar tarjetas muy anchas */
-            display: none;                    /* Oculto por defecto */
+            display: none;                     /* Oculto por defecto */
         "
     >
         <!-- 
@@ -462,7 +499,7 @@ ESTRUCTURA:
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 20px;">🧪</span>
-                <h3 style="font-size: 18px; font-weight: bold; color: white;">Daily Lab</h3>
+                <h3 id="daily-lab-title" style="font-size: 18px; font-weight: bold; color: white;">Daily Lab</h3>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <!-- Texto de progreso (ej: "1/3") -->
@@ -477,7 +514,7 @@ ESTRUCTURA:
         </div>
 
         <!-- Descripción del panel -->
-        <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Complete today's experiments</p>
+        <p id="daily-lab-desc" style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Complete today's experiments</p>
 
         <!-- 
         LISTA DE MISIONES (#missions-list)
@@ -602,8 +639,8 @@ const allMissions = [
     { id: 'fibonacci', title: 'Use the Fibonacci generator', icon: '🔢' }, // Generar Fibonacci
     { id: 'triangle', title: 'Generate triangle angles', icon: '📐' }, // Generar ángulos de triángulo
     { id: 'polygon', title: 'Search for a polygon', icon: '⬡' },    // Buscar polígono
-    { id: 'bmi', title: 'Calculate your BMI', icon: '⚖️' },          // Calcular IMC
-    { id: 'unit', title: 'Use the Unit Converter', icon: '🔄' }      // Conversor de unidades
+    { id: 'food', title: 'Evaluate a food', icon: '🥗' },           // Evaluar alimento
+    { id: 'compare', title: 'Compare foods', icon: '⚖️' }            // Comparar alimentos
 ];
 
 /* 
@@ -1210,9 +1247,34 @@ INICIALIZACIÓN
 ================================================================================
 Cuando el DOM está completamente cargado, inicializar el Daily Lab.
 El evento 'DOMContentLoaded' se dispara cuando el navegador terminó de 
-construir el árbol DOM.
+ construir el árbol DOM.
 */
 document.addEventListener('DOMContentLoaded', initDailyLab);
+</script>
+
+<!-- =========================================================================
+SCRIPT: Inicialización de idioma
+======================================================================== -->
+<script>
+/*
+Inicializa el idioma guardado y actualiza la UI.
+Se ejecuta cuando el DOM está listo.
+*/
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener idioma guardado o usar inglés por defecto
+    const savedLang = localStorage.getItem("lang") || "en";
+    
+    // Actualizar selector de idioma
+    const langSelector = document.getElementById('lang-selector');
+    if (langSelector) {
+        langSelector.value = savedLang;
+    }
+    
+    // Actualizar textos de la UI
+    if (typeof updateUITexts === 'function') {
+        updateUITexts();
+    }
+});
 </script>
 
 </body>
