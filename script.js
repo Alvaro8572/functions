@@ -390,18 +390,12 @@ function updateUITexts() {
     const appTitle = document.getElementById('app-title');
     if (appTitle) appTitle.textContent = t('appTitle');
     
-    const appSubtitle = document.getElementById('app-subtitle');
-    if (appSubtitle) appSubtitle.textContent = t('appSubtitle');
+    // Subtitle NO se traduce - permanece en inglés como pidió el usuario
+    // const appSubtitle = document.getElementById('app-subtitle');
+    // if (appSubtitle) appSubtitle.textContent = t('appSubtitle');
     
-    // Botones del menú principal
-    const menuMath = document.getElementById('menu-math');
-    if (menuMath) menuMath.textContent = t('menu_math');
-    
-    const menuNutrition = document.getElementById('menu-nutrition');
-    if (menuNutrition) menuNutrition.textContent = t('menu_nutrition');
-    
-    const menuProductivity = document.getElementById('menu-productivity');
-    if (menuProductivity) menuProductivity.textContent = t('menu_productivity');
+    // Note: Los botones del menú principal (.math_generator, .nutrition_tools, .productivity_tools)
+    // NO se traducen - permanecen con su nombre técnico
     
     // Daily Lab
     const dailyLabTitle = document.getElementById('daily-lab-title');
