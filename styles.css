@@ -243,6 +243,14 @@ svg {
     visibility: visible !important;
 }
 
+/* Radio button styling fallback */
+input[type="radio"] {
+    appearance: auto;
+    width: 18px;
+    height: 18px;
+    accent-color: #8b5cf6;
+}
+
 /* ------------------------------------------------------------------------------
 CLASE .tool-card (TARJETAS DE HERRAMIENTAS)
 ------------------------------------------------------------------------------ */
