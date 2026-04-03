@@ -214,19 +214,37 @@ Aquí: cuando el usuario pasa el cursor sobre el botón
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
-/* 
-Selector :active: Aplicado cuando el botón está siendo clickeado
+/* Selector :active: Aplicado cuando el botón está siendo clickeado
 Aquí: cuando el usuario hace clic en el botón
 */
-.main-btn:active {
-    /* 
+button[onclick]:active {
+    /*
     translateY(1px): Mueve ligeramente hacia abajo (efecto de "presión")
     */
     transform: translateY(1px);
 }
 
 /* ------------------------------------------------------------------------------
-BOTÓN MATEMÁTICAS (.btn-math)
+SVG ICONS IN BUTTONS - FORCE VISIBILITY
+ ------------------------------------------------------------------------------ */
+
+/* Make SVG icons visible in all buttons */
+button svg, .btn-math svg, .btn-nutrition svg {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    color: white !important;
+    fill: none !important;
+}
+
+/* Ensure inline SVG styles are respected */
+svg {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ------------------------------------------------------------------------------
+CLASE .tool-card (TARJETAS DE HERRAMIENTAS)
 ------------------------------------------------------------------------------ */
 
 /*
