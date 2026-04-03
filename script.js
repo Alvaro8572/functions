@@ -512,9 +512,10 @@ Se usa para no contaminar el ámbito global (global scope).
 (function ForceRenderOnLoad() {
     console.log("App: Force render module loaded");
 
-    // Esperar a que el DOM esté completamente cargado
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log("App: DOMContentLoaded fired");
+    // Usar window.onload en lugar de DOMContentLoaded
+    // window.onload espera a que se carguen TODOS los recursos (incluidos SVGs, imágenes, etc.)
+    window.onload = function() {
+        console.log("App: window.onload fired");
 
         try {
             // Obtener el contenedor principal por su ID
@@ -608,7 +609,7 @@ Se usa para no contaminar el ámbito global (global scope).
     window.addEventListener('unhandledrejection', (ev) => {
         console.error("App unhandled rejection:", ev.reason);
     });
-})();
+}();
 
 // ================================================================================
 // TEMPLATES HTML
