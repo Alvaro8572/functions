@@ -875,16 +875,30 @@ const productivityHTML = `
             <p class="text-sm text-slate-400">Generate strong numeric PINs for mobile devices.</p>
 
             <!-- Radio buttons para elegir longitud -->
-            <div style="display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; align-items: center;">
-                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                    <input type="radio" name="pin-length" value="4" checked>
-                    <span style="color: white; font-size: 14px;">4 digits</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                    <input type="radio" name="pin-length" value="6">
-                    <span style="color: white; font-size: 14px;">6 digits</span>
-                </label>
+            <!-- Botones para elegir longitud del PIN -->
+            <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 12px;">
+                <button type="button" onclick="selectPinLength(4)" id="pin-btn-4" style="
+                    padding: 8px 20px;
+                    border-radius: 8px;
+                    border: 2px solid #8b5cf6;
+                    background: #8b5cf6;
+                    color: white;
+                    font-size: 14px;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">4 digits</button>
+                <button type="button" onclick="selectPinLength(6)" id="pin-btn-6" style="
+                    padding: 8px 20px;
+                    border-radius: 8px;
+                    border: 2px solid #8b5cf6;
+                    background: transparent;
+                    color: #8b5cf6;
+                    font-size: 14px;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">6 digits</button>
             </div>
+            <input type="hidden" id="pin-length-selected" value="4">
 
             <button onclick="generatePIN()" class="w-full py-2 bg-violet-600 hover:bg-violet-500 text-white rounded-lg font-semibold transition-colors text-sm">
                 Generate PIN
@@ -1760,19 +1774,44 @@ function isValidPIN(pin, length) {
 }
 
 /*
+FUNCIÓN: selectPinLength(length)
+----------------------------------------------------------------------
+Selecciona la longitud del PIN y actualiza el estilo de los botones.
+*/
+function selectPinLength(length) {
+    document.getElementById('pin-length-selected').value = length;
+    
+    // Actualizar estilos de los botones
+    const btn4 = document.getElementById('pin-btn-4');
+    const btn6 = document.getElementById('pin-btn-6');
+    
+    if (length === 4) {
+        btn4.style.background = '#8b5cf6';
+        btn4.style.color = 'white';
+        btn6.style.background = 'transparent';
+        btn6.style.color = '#8b5cf6';
+    } else {
+        btn6.style.background = '#8b5cf6';
+        btn6.style.color = 'white';
+        btn4.style.background = 'transparent';
+        btn4.style.color = '#8b5cf6';
+    }
+}
+
+/*
 FUNCIÓN: generatePIN()
 ----------------------------------------------------------------------
-Genera un PIN numérico seguro.
+Genera un PIN válido de 4 o 6 dígitos.
 
-Cómo funciona:
-1. Genera Pines aleatorios
-2. Valida cada uno con isValidPIN()
-3. Se repite hasta encontrar uno válido
+Validación:
+1. No tener 3+ dígitos consecutivos ascendentes
+2. No tener 3+ dígitos consecutivos descendentes
+3. No tener 3+ dígitos repetidos
 4. Máximo 1000 intentos (por seguridad)
 */
 function generatePIN() {
-    // Obtener longitud seleccionada (4 o 6 dígitos)
-    const length = parseInt(document.querySelector('input[name="pin-length"]:checked').value);
+    // Obtener longitud seleccionada del input oculto
+    const length = parseInt(document.getElementById('pin-length-selected').value);
     
     let pin;
     let attempts = 0;
