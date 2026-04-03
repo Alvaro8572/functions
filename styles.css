@@ -245,10 +245,42 @@ svg {
 
 /* Radio button styling fallback */
 input[type="radio"] {
-    appearance: auto;
-    width: 18px;
-    height: 18px;
-    accent-color: #8b5cf6;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #8b5cf6;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+}
+
+input[type="radio"]:checked {
+    background-color: #8b5cf6;
+    border-color: #8b5cf6;
+}
+
+input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+input[type="radio"]:hover {
+    border-color: #a78bfa;
+}
+
+input[type="radio"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
 }
 
 /* ------------------------------------------------------------------------------

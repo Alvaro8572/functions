@@ -875,14 +875,14 @@ const productivityHTML = `
             <p class="text-sm text-slate-400">Generate strong numeric PINs for mobile devices.</p>
 
             <!-- Radio buttons para elegir longitud -->
-            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 12px;">
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                    <input type="radio" name="pin-length" value="4" checked style="width: 20px; height: 20px; accent-color: #8b5cf6; cursor: pointer;">
-                    <span class="text-sm text-white">4 digits</span>
+            <div style="display: flex; gap: 24px; justify-content: center; margin-bottom: 12px; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="radio" name="pin-length" value="4" checked>
+                    <span style="color: white; font-size: 14px;">4 digits</span>
                 </label>
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                    <input type="radio" name="pin-length" value="6" style="width: 20px; height: 20px; accent-color: #8b5cf6; cursor: pointer;">
-                    <span class="text-sm text-white">6 digits</span>
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="radio" name="pin-length" value="6">
+                    <span style="color: white; font-size: 14px;">6 digits</span>
                 </label>
             </div>
 
