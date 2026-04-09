@@ -245,7 +245,9 @@ const translations = {
         virtual_coin: "Moneda Virtual",
         flip_coin: "Tira una moneda (Cara o Cruz)",
         "Heads!": "¡Cara!",
-        "Tails!": "¡Cruz!"
+        "Tails!": "¡Cruz!",
+        "Heads! 🟡": "¡Cara!",
+        "Tails! ⚫": "¡Cruz!"
     }
 };
 
@@ -448,8 +450,8 @@ function translateSection() {
         "Virtual Dice": "virtual_dice",
         "Virtual Coin": "virtual_coin",
         "Flip Coin": "flip_coin",
-        "Heads! ⭕": "Heads!",
-        "Tails! ❌": "Tails!"
+        "Heads! 🟡": "Heads!",
+        "Tails! ⚫": "Tails!"
     };
     
     // Traducir elementos por contenido de texto y atributos data-i18n
@@ -2229,16 +2231,16 @@ function flipCoin() {
             // Resultado final (50% probabilidad)
             const isHeads = Math.random() >= 0.5;
             
-            // Usar emoji de círculo para evitar banderas
-            coin.textContent = isHeads ? '⭕' : '❌';
+            // Mostrar moneda con el resultado
+            coin.textContent = isHeads ? '🟡' : '⚫';
             coin.style.transform = 'rotateY(0deg) scale(1)';
             coin.style.transition = 'transform 0.5s ease';
             
             // Mostrar resultado
             if (currentLang === 'es') {
-                resultText.textContent = isHeads ? '¡Cara! ⭕' : '¡Cruz! ❌';
+                resultText.textContent = isHeads ? '¡Cara! 🟡' : '¡Cruz! ⚫';
             } else {
-                resultText.textContent = isHeads ? 'Heads! ⭕' : 'Tails! ❌';
+                resultText.textContent = isHeads ? 'Heads! 🟡' : 'Tails! ⚫';
             }
             resultDiv.classList.remove('hidden');
         }
