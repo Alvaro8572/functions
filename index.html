@@ -164,7 +164,6 @@ Por qué #app:
         <select id="lang-selector" 
             onchange="setLanguage(this.value)"
             style="
-            style="
                 background: rgba(30, 41, 59, 0.8);
                 color: white;
                 border: 1px solid #475569;
@@ -1265,18 +1264,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener idioma guardado o usar inglés por defecto
     const savedLang = localStorage.getItem("lang") || "en";
     
-    // Establecer el idioma actual globalmente
-    currentLang = savedLang;
-    
-    // Actualizar selector de idioma
+    // Solo actualizar selector de idioma (currentLang se define en script.js)
     const langSelector = document.getElementById('lang-selector');
     if (langSelector) {
         langSelector.value = savedLang;
-    }
-    
-    // Actualizar textos de la UI
-    if (typeof updateUITexts === 'function') {
-        updateUITexts();
     }
 });
 </script>
