@@ -348,6 +348,12 @@ function updateUITexts() {
     // Settings
     const langLabel = document.getElementById('lang-label');
     if (langLabel) langLabel.textContent = t('language');
+    
+    // PIN length buttons
+    const btn4 = document.getElementById('pin-btn-4');
+    const btn6 = document.getElementById('pin-btn-6');
+    if (btn4) btn4.textContent = currentLang === 'es' ? '4 dígitos' : '4 digits';
+    if (btn6) btn6.textContent = currentLang === 'es' ? '6 dígitos' : '6 digits';
 }
 
 /*
@@ -828,10 +834,9 @@ const productivityHTML = `
 
             <p class="text-sm text-slate-400">Generate strong numeric PINs for mobile devices.</p>
 
-            <!-- Radio buttons para elegir longitud -->
             <!-- Botones para elegir longitud del PIN -->
             <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 12px;">
-                <button type="button" onclick="selectPinLength(4)" id="pin-btn-4" style="
+                <button type="button" onclick="selectPinLength(4)" id="pin-btn-4" data-i18n="4 digits" style="
                     padding: 8px 20px;
                     border-radius: 8px;
                     border: 2px solid #8b5cf6;
@@ -841,7 +846,7 @@ const productivityHTML = `
                     cursor: pointer;
                     font-weight: 600;
                 ">4 digits</button>
-                <button type="button" onclick="selectPinLength(6)" id="pin-btn-6" style="
+                <button type="button" onclick="selectPinLength(6)" id="pin-btn-6" data-i18n="6 digits" style="
                     padding: 8px 20px;
                     border-radius: 8px;
                     border: 2px solid #8b5cf6;
