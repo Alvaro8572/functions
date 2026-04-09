@@ -1900,26 +1900,26 @@ const wordListEn = [
 ];
 
 const wordListEs = [
-    { word: "Alienation", meaning: "Sentimiento de aislamiento o separación de los demás, que suele causar dolor emocional." },
-    { word: "Serendipity", meaning: "Acontecimiento feliz que acontece por azar; encontrar algo valioso sin buscarlo." },
-    { word: "Idoneous", meaning: "Adecuado o apropiado para un propósito particular." },
-    { word: "Nostalgia", meaning: "Sentimiento de pena por la pérdida de algo querido o por el recuerdo de un tiempo pasado." },
-    { word: "Ephemeral", meaning: "Que dura muy poco tiempo; pasajero." },
-    { word: "Paradox", meaning: "Afirmación aparentemente contradictoria que puede ser verdadera." },
-    { word: "Ineffable", meaning: "Que no puede expresarse con palabras; indecible." },
-    { word: "Solitude", meaning: "Estado de estar solo sin sentirse solo." },
-    { word: "Ambiguous", meaning: "Que admite dos o más interpretaciones; oscuro o impreciso." },
-    { word: "Obsession", meaning: "Preocupación persistente que domina el pensamiento de una persona." },
-    { word: "Euphoria", meaning: "Estado de ánimo caracterizado por una intensa sensación de bienestar y alegría." },
-    { word: "Resilience", meaning: "Capacidad de adaptarse y recuperarse rápidamente ante la adversidad." },
-    { word: "Mellifluous", meaning: "De sonido dulce y armonioso; agradable al oído." },
-    { word: "Petrichor", meaning: "Aroma agradable que despide la tierra cuando cae la lluvia después de un período seco." },
-    { word: "Saudade", meaning: "Sentimiento profundo de nostalgia o anhelo por algo o alguien ausente." },
-    { word: "Wanderlust", meaning: "Deseo intenso de viajar y explorar nuevos lugares." },
-    { word: "Luminous", meaning: "Que emite luz; iluminado o brillante." },
-    { word: "Ethereal", meaning: "Extremadamente delicado y ligero, como si no fuera de este mundo." },
-    { word: "Surreptitious", meaning: "Hecho de manera secreta, sin ser observado ni detectado." },
-    { word: "Halcyon", meaning: "Período del pasado caracterizado por dicha y serenidad perfectas." }
+    { word: "Cachondeo", meaning: "Diversión intensa y risa uncontrollable; broma muy divertida." },
+    { word: "Embeleso", meaning: "Estado de atracción total que suspende el sentido crítica." },
+    { word: "Ensueño", meaning: "Estado de ilusión y felicidad que supera la realidad." },
+    { word: "Atardecer", meaning: "Momento del día en que el sol desaparece en el horizonte." },
+    { word: "Contemplación", meaning: "Acción de observar con atención y profundidad algo." },
+    { word: "Antojadizo", meaning: "Que desea algo de manera repentina e intensa." },
+    { word: "Merendar", meaning: "Tomar una comida ligera por la tarde." },
+    { word: "Arrebato", meaning: "Impulso súbito y violento de algún sentimiento." },
+    { word: "Desvelado", meaning: "Que no puede dormir o que ha pasado la noche sin dormir." },
+    { word: "Ternura", meaning: "Sentimiento de cariño y delicadeza hacia alguien." },
+    { word: "Entrañable", meaning: "Muy íntimo y afectuoso entre personas." },
+    { word: "Resaca", meaning: "Malestar físico después de embriaguez o esfuerzo intenso." },
+    { word: "Chapuzón", meaning: "Baño rápido o zambullida accidental en el agua." },
+    { word: "Estrenar", meaning: "Usar algo por primera vez con satisfacción." },
+    { word: "Madrugar", meaning: "Levantarse muy temprano, antes de lo habitual." },
+    { word: "Trasnochar", meaning: "Pasar la noche sin dormir o llegar muy tarde a casa." },
+    { word: "Espabilar", meaning: "Despertar completamente o在各中快速反应." },
+    { word: "Coincidir", meaning: "Ocurrir dos o más cosas al mismo tiempo." },
+    { word: "Despreocuparse", meaning: "No bothering about problems or responsibilities." },
+    { word: "Atardecer", meaning: "Momento del día en que el sol desciende y aparece el crepúsculo." }
 ];
 
 /*
