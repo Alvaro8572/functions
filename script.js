@@ -152,61 +152,8 @@ const translations = {
         roll_dice: "Roll a virtual dice (1-6)",
         virtual_coin: "Virtual Coin",
         flip_coin: "Flip a coin (Heads or Tails)",
-        
-        // Daily Lab
-        daily_lab: "Daily Lab",
-        daily_lab_desc: "Complete today's experiments",
-        mission_complete: "Mission Complete!",
-        all_complete: "All missions completed!",
-        progress: "Progress",
-        
-        // Missions
-        mission_pin: "Generate a PIN",
-        mission_password: "Generate any password",
-        mission_longpwd: "Generate a long password (10+)",
-        mission_fibonacci: "Use the Fibonacci generator",
-        mission_triangle: "Generate triangle angles",
-        mission_polygon: "Search for a polygon",
-        mission_bmi: "Calculate your BMI",
-        mission_unit: "Use the Unit Converter",
-        
-        // Settings
-        settings: "Settings",
-        language: "Language",
-        english: "English",
-        spanish: "Spanish",
-        
-        // Errors
-        error_load: "App failed to load. Check console.",
-        enter_value: "Please enter a value",
-        select_units: "Please select both units",
-        invalid_input: "Please enter valid numbers",
-        
-        // Additional mappings
-        pin_length_4: "4 digits",
-        pin_length_6: "6 digits",
-        copy: "Copy",
-        length_8: "8",
-        length_16: "16",
-        length_32: "32",
-        binomial_result_a: "a² + 2ab + b²",
-        binomial_result_b: "a² - 2ab + b²",
-        polynomial_result: "ax² + bx + c",
-        
-        // Labels
-        "Select a food": "Select a food",
-        "Select Food A": "Select Food A",
-        "Select Food B": "Select Food B",
-        "Bill amount": "Bill amount",
-        "Number of people": "Number of people",
-        "Tip:": "Tip:",
-        "Total:": "Total:",
-        "Per person:": "Per person:",
-        "Original price": "Original price",
-        "Discount %": "Discount %",
-        "You save:": "You save:",
-        "Final price:": "Final price:",
-        "Roll Dice": "Roll Dice"
+        "Heads!": "Heads!",
+        "Tails!": "Tails!"
     },
     es: {
         appTitle: "functions",
@@ -297,61 +244,8 @@ const translations = {
         roll_dice: "Tira un dado virtual (1-6)",
         virtual_coin: "Moneda Virtual",
         flip_coin: "Tira una moneda (Cara o Cruz)",
-        
-        // Daily Lab
-        daily_lab: "Daily Lab",
-        daily_lab_desc: "Completa los experimentos de hoy",
-        mission_complete: "¡Misión Completada!",
-        all_complete: "¡Todas las misiones completadas!",
-        progress: "Progreso",
-        
-        // Missions
-        mission_pin: "Generar un PIN",
-        mission_password: "Generar cualquier contraseña",
-        mission_longpwd: "Generar contraseña larga (10+)",
-        mission_fibonacci: "Usar el generador de Fibonacci",
-        mission_triangle: "Generar ángulos de triángulo",
-        mission_polygon: "Buscar un polígono",
-        mission_bmi: "Calcula tu IMC",
-        mission_unit: "Usar el Conversor de Unidades",
-        
-        // Settings
-        settings: "Configuración",
-        language: "Idioma",
-        english: "Inglés",
-        spanish: "Español",
-        
-        // Errors
-        error_load: "La app no pudo cargar. Revisa la consola.",
-        enter_value: "Por favor ingresa un valor",
-        select_units: "Por favor selecciona ambas unidades",
-        invalid_input: "Por favor ingresa números válidos",
-        
-        // Additional mappings
-        pin_length_4: "4 dígitos",
-        pin_length_6: "6 dígitos",
-        copy: "Copiar",
-        length_8: "8",
-        length_16: "16",
-        length_32: "32",
-        binomial_result_a: "a² + 2ab + b²",
-        binomial_result_b: "a² - 2ab + b²",
-        polynomial_result: "ax² + bx + c",
-        
-        // Labels
-        "Select a food": "Seleccionar un alimento",
-        "Select Food A": "Seleccionar Alimento A",
-        "Select Food B": "Seleccionar Alimento B",
-        "Bill amount": "Monto de la cuenta",
-        "Number of people": "Número de personas",
-        "Tip:": "Propina:",
-        "Total:": "Total:",
-        "Per person:": "Por persona:",
-        "Original price": "Precio original",
-        "Discount %": "% de descuento",
-        "You save:": "Ahorras:",
-        "Final price:": "Precio final:",
-        "Roll Dice": "Tirar Dado"
+        "Heads!": "¡Cara!",
+        "Tails!": "¡Cruz!"
     }
 };
 
@@ -553,7 +447,9 @@ function translateSection() {
         "Discount Calculator": "discount_calculator",
         "Virtual Dice": "virtual_dice",
         "Virtual Coin": "virtual_coin",
-        "Flip Coin": "flip_coin"
+        "Flip Coin": "flip_coin",
+        "Heads! ⭕": "Heads!",
+        "Tails! ❌": "Tails!"
     };
     
     // Traducir elementos por contenido de texto y atributos data-i18n
@@ -1162,6 +1058,10 @@ const productivityHTML = `
             <button onclick="flipCoin()" class="w-full py-2 bg-slate-500 hover:bg-slate-400 text-white rounded-lg font-semibold transition-colors text-sm">
                 Flip Coin
             </button>
+
+            <div id="coin-result" class="hidden p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                <p class="text-lg font-bold text-white"><span id="coin-result-text"></span></p>
+            </div>
         </div>
 
     </div>
@@ -2312,6 +2212,8 @@ Tira una moneda virtual con animación.
 */
 function flipCoin() {
     const coin = document.getElementById('coin-display');
+    const resultText = document.getElementById('coin-result-text');
+    const resultDiv = document.getElementById('coin-result');
     
     // Animación de volteo
     let flips = 0;
@@ -2326,9 +2228,19 @@ function flipCoin() {
             clearInterval(interval);
             // Resultado final (50% probabilidad)
             const isHeads = Math.random() >= 0.5;
-            coin.textContent = isHeads ? '🇭🇺' : '🇹🇼';
+            
+            // Usar emoji de círculo para evitar banderas
+            coin.textContent = isHeads ? '⭕' : '❌';
             coin.style.transform = 'rotateY(0deg) scale(1)';
             coin.style.transition = 'transform 0.5s ease';
+            
+            // Mostrar resultado
+            if (currentLang === 'es') {
+                resultText.textContent = isHeads ? '¡Cara! ⭕' : '¡Cruz! ❌';
+            } else {
+                resultText.textContent = isHeads ? 'Heads! ⭕' : 'Tails! ❌';
+            }
+            resultDiv.classList.remove('hidden');
         }
     }, 100);
 }
