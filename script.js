@@ -413,8 +413,6 @@ function updateUITexts() {
     const langLabel = document.getElementById('lang-label');
     if (langLabel) langLabel.textContent = t('language');
 }
-    if (langLabel) langLabel.textContent = t('language');
-}
 
 /*
 FUNCIÓN: translateSection()
