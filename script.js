@@ -143,6 +143,14 @@ const translations = {
         generate_password: "Generate",
         copied: "Copied!",
         
+        // New productivity tools
+        tip_calculator: "Tip Calculator",
+        tip_desc: "Calculate tip and split the bill",
+        discount_calculator: "Discount Calculator",
+        discount_desc: "Calculate discounted price",
+        virtual_dice: "Virtual Dice",
+        roll_dice: "Roll a virtual dice (1-6)",
+        
         // Daily Lab
         daily_lab: "Daily Lab",
         daily_lab_desc: "Complete today's experiments",
@@ -186,7 +194,17 @@ const translations = {
         // Labels
         "Select a food": "Select a food",
         "Select Food A": "Select Food A",
-        "Select Food B": "Select Food B"
+        "Select Food B": "Select Food B",
+        "Bill amount": "Bill amount",
+        "Number of people": "Number of people",
+        "Tip:": "Tip:",
+        "Total:": "Total:",
+        "Per person:": "Per person:",
+        "Original price": "Original price",
+        "Discount %": "Discount %",
+        "You save:": "You save:",
+        "Final price:": "Final price:",
+        "Roll Dice": "Roll Dice"
     },
     es: {
         appTitle: "functions",
@@ -268,6 +286,14 @@ const translations = {
         generate_password: "Generar",
         copied: "¡Copiado!",
         
+        // New productivity tools
+        tip_calculator: "Calculadora de Propinas",
+        tip_desc: "Calcula la propina y divide la cuenta",
+        discount_calculator: "Calculadora de Descuentos",
+        discount_desc: "Calcula el precio con descuento",
+        virtual_dice: "Dado Virtual",
+        roll_dice: "Tira un dado virtual (1-6)",
+        
         // Daily Lab
         daily_lab: "Daily Lab",
         daily_lab_desc: "Completa los experimentos de hoy",
@@ -311,7 +337,17 @@ const translations = {
         // Labels
         "Select a food": "Seleccionar un alimento",
         "Select Food A": "Seleccionar Alimento A",
-        "Select Food B": "Seleccionar Alimento B"
+        "Select Food B": "Seleccionar Alimento B",
+        "Bill amount": "Monto de la cuenta",
+        "Number of people": "Número de personas",
+        "Tip:": "Propina:",
+        "Total:": "Total:",
+        "Per person:": "Por persona:",
+        "Original price": "Precio original",
+        "Discount %": "% de descuento",
+        "You save:": "Ahorras:",
+        "Final price:": "Precio final:",
+        "Roll Dice": "Tirar Dado"
     }
 };
 
@@ -506,9 +542,12 @@ function translateSection() {
         // Binomial output
         "a² + 2ab + b²": "binomial_result_a",
         "a² - 2ab + b²": "binomial_result_b",
+        "ax² + bx + c": "polynomial_result",
         
-        // Polynomial output
-        "ax² + bx + c": "polynomial_result"
+        // New productivity tools
+        "Tip Calculator": "tip_calculator",
+        "Discount Calculator": "discount_calculator",
+        "Virtual Dice": "virtual_dice"
     };
     
     // Traducir elementos por contenido de texto
@@ -976,6 +1015,103 @@ const productivityHTML = `
                     <button onclick="generatePassword()" class="flex-1 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-semibold transition-colors text-sm">New</button>
                 </div>
             </div>
+        </div>
+
+        <!-- TARJETA: Tip Calculator -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-rose-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-rose-500/20 rounded-lg text-rose-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Tip Calculator</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Calculate tip and split the bill.</p>
+
+            <div class="space-y-3">
+                <input type="number" id="tip-amount" placeholder="Bill amount" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
+                <div class="flex gap-2">
+                    <button onclick="setTipPercent(10)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">10%</button>
+                    <button onclick="setTipPercent(15)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">15%</button>
+                    <button onclick="setTipPercent(20)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">20%</button>
+                    <button onclick="setTipPercent(25)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">25%</button>
+                </div>
+                <input type="number" id="tip-people" placeholder="Number of people" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
+            </div>
+
+            <button onclick="calculateTip()" class="w-full py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Calculate
+            </button>
+
+            <div id="tip-result" class="hidden p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                <p class="text-sm text-slate-400">Tip: <span id="tip-value" class="text-white font-bold"></span></p>
+                <p class="text-sm text-slate-400">Total: <span id="tip-total" class="text-white font-bold"></span></p>
+                <p class="text-sm text-slate-400">Per person: <span id="tip-per-person" class="text-rose-400 font-bold"></span></p>
+            </div>
+        </div>
+
+        <!-- TARJETA: Discount Calculator -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-orange-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Discount Calculator</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Calculate discounted price.</p>
+
+            <div class="space-y-3">
+                <input type="number" id="discount-original" placeholder="Original price" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-orange-500">
+                <input type="number" id="discount-percent" placeholder="Discount %" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-orange-500">
+            </div>
+
+            <button onclick="calculateDiscount()" class="w-full py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Calculate
+            </button>
+
+            <div id="discount-result" class="hidden p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                <p class="text-sm text-slate-400">You save: <span id="discount-save" class="text-green-400 font-bold"></span></p>
+                <p class="text-lg font-bold text-white">Final price: <span id="discount-final" class="text-orange-400"></span></p>
+            </div>
+        </div>
+
+        <!-- TARJETA: Virtual Dice -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-cyan-500">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-cyan-500/20 rounded-lg text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.414 1.414.586 3.828-1.414 4.414L12 18l-4.414 4.414A2 2 0 015 20.828V20l1-1V4" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Virtual Dice</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Roll a virtual dice (1-6).</p>
+
+            <div style="display: flex; justify-content: center; align-items: center; height: 80px;">
+                <div id="dice-display" style="
+                    width: 70px; 
+                    height: 70px; 
+                    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 36px;
+                    font-weight: bold;
+                    color: white;
+                    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+                ">🎲</div>
+            </div>
+
+            <button onclick="rollDice()" class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-semibold transition-colors text-sm">
+                Roll Dice
+            </button>
         </div>
 
     </div>
@@ -2024,4 +2160,97 @@ Copia la contraseña generada al portapapeles.
 function copyPassword() {
     const password = document.getElementById('pwd-output').textContent;
     navigator.clipboard.writeText(password);
+}
+
+/*
+FUNCIÓN: setTipPercent(percent)
+----------------------------------------------------------------------
+Establece el porcentaje de propinas y actualiza los botones.
+*/
+let tipPercent = 15;
+function setTipPercent(percent) {
+    tipPercent = percent;
+    // Actualizar estilos de botones
+    const buttons = document.querySelectorAll('[onclick^="setTipPercent"]');
+    buttons.forEach(btn => {
+        if (btn.textContent === percent + '%') {
+            btn.style.background = '#f43f5e';
+        } else {
+            btn.style.background = '';
+        }
+    });
+}
+
+/*
+FUNCIÓN: calculateTip()
+----------------------------------------------------------------------
+Calcula la propina, total y divide entre personas.
+*/
+function calculateTip() {
+    const amount = parseFloat(document.getElementById('tip-amount').value);
+    const people = parseInt(document.getElementById('tip-people').value) || 1;
+    
+    if (!amount || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+    }
+    
+    const tip = amount * (tipPercent / 100);
+    const total = amount + tip;
+    const perPerson = total / people;
+    
+    document.getElementById('tip-value').textContent = '$' + tip.toFixed(2);
+    document.getElementById('tip-total').textContent = '$' + total.toFixed(2);
+    document.getElementById('tip-per-person').textContent = '$' + perPerson.toFixed(2);
+    document.getElementById('tip-result').classList.remove('hidden');
+}
+
+/*
+FUNCIÓN: calculateDiscount()
+----------------------------------------------------------------------
+Calcula el precio con descuento.
+*/
+function calculateDiscount() {
+    const original = parseFloat(document.getElementById('discount-original').value);
+    const percent = parseFloat(document.getElementById('discount-percent').value);
+    
+    if (!original || !percent || original <= 0 || percent <= 0) {
+        alert('Please enter valid values');
+        return;
+    }
+    
+    const save = original * (percent / 100);
+    const final = original - save;
+    
+    document.getElementById('discount-save').textContent = '$' + save.toFixed(2);
+    document.getElementById('discount-final').textContent = '$' + final.toFixed(2);
+    document.getElementById('discount-result').classList.remove('hidden');
+}
+
+/*
+FUNCIÓN: rollDice()
+----------------------------------------------------------------------
+Tira un dado virtual con animación.
+*/
+function rollDice() {
+    const dice = document.getElementById('dice-display');
+    
+    // Animación de lanzamiento
+    let rolls = 0;
+    const maxRolls = 15;
+    const interval = setInterval(() => {
+        dice.textContent = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][Math.floor(Math.random() * 6)];
+        dice.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.9 + Math.random() * 0.2})`;
+        rolls++;
+        
+        if (rolls >= maxRolls) {
+            clearInterval(interval);
+            // Resultado final
+            const result = Math.floor(Math.random() * 6) + 1;
+            const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            dice.textContent = diceEmojis[result - 1];
+            dice.style.transform = 'rotate(0deg) scale(1)';
+            dice.style.transition = 'transform 0.3s ease';
+        }
+    }, 100);
 }
