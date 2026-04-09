@@ -386,16 +386,18 @@ Actualiza todos los textos estáticos de la interfaz.
 Se llama cuando se cambia el idioma.
 */
 function updateUITexts() {
-    // Título de la app
-    const appTitle = document.getElementById('app-title');
-    if (appTitle) appTitle.textContent = t('appTitle');
+    // Título de la app - NO se traduce (permanece "functions")
+    // Subtitle - NO se traduce (permanece "System Ready. Select Module.")
     
-    // Subtitle NO se traduce - permanece en inglés como pidió el usuario
-    // const appSubtitle = document.getElementById('app-subtitle');
-    // if (appSubtitle) appSubtitle.textContent = t('appSubtitle');
+    // Botones del menú principal - descripciones traducidas
+    const menuMathDesc = document.getElementById('menu-math-desc');
+    if (menuMathDesc) menuMathDesc.textContent = currentLang === 'es' ? 'Matemáticas' : 'Mathematics';
     
-    // Note: Los botones del menú principal (.math_generator, .nutrition_tools, .productivity_tools)
-    // NO se traducen - permanecen con su nombre técnico
+    const menuNutritionDesc = document.getElementById('menu-nutrition-desc');
+    if (menuNutritionDesc) menuNutritionDesc.textContent = currentLang === 'es' ? 'Nutrición' : 'Nutrition';
+    
+    const menuProductivityDesc = document.getElementById('menu-productivity-desc');
+    if (menuProductivityDesc) menuProductivityDesc.textContent = currentLang === 'es' ? 'Productividad' : 'Productivity';
     
     // Daily Lab
     const dailyLabTitle = document.getElementById('daily-lab-title');
@@ -409,6 +411,8 @@ function updateUITexts() {
     
     // Settings
     const langLabel = document.getElementById('lang-label');
+    if (langLabel) langLabel.textContent = t('language');
+}
     if (langLabel) langLabel.textContent = t('language');
 }
 
