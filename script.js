@@ -150,6 +150,8 @@ const translations = {
         discount_desc: "Calculate discounted price",
         virtual_dice: "Virtual Dice",
         roll_dice: "Roll a virtual dice (1-6)",
+        virtual_coin: "Virtual Coin",
+        flip_coin: "Flip a coin (Heads or Tails)",
         
         // Daily Lab
         daily_lab: "Daily Lab",
@@ -293,6 +295,8 @@ const translations = {
         discount_desc: "Calcula el precio con descuento",
         virtual_dice: "Dado Virtual",
         roll_dice: "Tira un dado virtual (1-6)",
+        virtual_coin: "Moneda Virtual",
+        flip_coin: "Tira una moneda (Cara o Cruz)",
         
         // Daily Lab
         daily_lab: "Daily Lab",
@@ -547,24 +551,35 @@ function translateSection() {
         // New productivity tools
         "Tip Calculator": "tip_calculator",
         "Discount Calculator": "discount_calculator",
-        "Virtual Dice": "virtual_dice"
+        "Virtual Dice": "virtual_dice",
+        "Virtual Coin": "virtual_coin",
+        "Flip Coin": "flip_coin"
     };
     
-    // Traducir elementos por contenido de texto
-    const elements = container.querySelectorAll('h3, p, button, span, label');
+    // Traducir elementos por contenido de texto y atributos data-i18n
+    const elements = container.querySelectorAll('h3, p, button, span, label, [data-i18n]');
     elements.forEach(el => {
+        // Traducir atributo data-i18n
+        if (el.hasAttribute('data-i18n')) {
+            const key = el.getAttribute('data-i18n');
+            el.textContent = t(key);
+        }
+        // Traducir texto normal
         const text = el.textContent.trim();
         if (textMappings[text]) {
             el.textContent = t(textMappings[text]);
         }
     });
     
-    // Traducir placeholders
+    // Traducir placeholders (soporte para data-i18n-placeholder)
     const inputElements = container.querySelectorAll('input, select');
     inputElements.forEach(el => {
-        const placeholder = el.placeholder;
-        if (placeholder && textMappings[placeholder]) {
-            el.placeholder = t(textMappings[placeholder]);
+        // Traducir data-i18n-placeholder
+        if (el.hasAttribute('data-i18n-placeholder')) {
+            const key = el.getAttribute('data-i18n-placeholder');
+            el.placeholder = t(key);
+        } else if (el.placeholder && textMappings[el.placeholder]) {
+            el.placeholder = t(textMappings[el.placeholder]);
         }
         
         // Traducir opciones de select
@@ -1031,14 +1046,14 @@ const productivityHTML = `
             <p class="text-sm text-slate-400">Calculate tip and split the bill.</p>
 
             <div class="space-y-3">
-                <input type="number" id="tip-amount" placeholder="Bill amount" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
+                <input type="number" id="tip-amount" data-i18n-placeholder="Bill amount" placeholder="Bill amount" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
                 <div class="flex gap-2">
                     <button onclick="setTipPercent(10)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">10%</button>
                     <button onclick="setTipPercent(15)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">15%</button>
                     <button onclick="setTipPercent(20)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">20%</button>
                     <button onclick="setTipPercent(25)" class="flex-1 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm">25%</button>
                 </div>
-                <input type="number" id="tip-people" placeholder="Number of people" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
+                <input type="number" id="tip-people" data-i18n-placeholder="Number of people" placeholder="Number of people" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-rose-500">
             </div>
 
             <button onclick="calculateTip()" class="w-full py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-semibold transition-colors text-sm">
@@ -1046,9 +1061,9 @@ const productivityHTML = `
             </button>
 
             <div id="tip-result" class="hidden p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
-                <p class="text-sm text-slate-400">Tip: <span id="tip-value" class="text-white font-bold"></span></p>
-                <p class="text-sm text-slate-400">Total: <span id="tip-total" class="text-white font-bold"></span></p>
-                <p class="text-sm text-slate-400">Per person: <span id="tip-per-person" class="text-rose-400 font-bold"></span></p>
+                <p class="text-sm text-slate-400"><span data-i18n="Tip:">Tip:</span> <span id="tip-value" class="text-white font-bold"></span></p>
+                <p class="text-sm text-slate-400"><span data-i18n="Total:">Total:</span> <span id="tip-total" class="text-white font-bold"></span></p>
+                <p class="text-sm text-slate-400"><span data-i18n="Per person:">Per person:</span> <span id="tip-per-person" class="text-rose-400 font-bold"></span></p>
             </div>
         </div>
 
@@ -1066,7 +1081,7 @@ const productivityHTML = `
             <p class="text-sm text-slate-400">Calculate discounted price.</p>
 
             <div class="space-y-3">
-                <input type="number" id="discount-original" placeholder="Original price" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-orange-500">
+                <input type="number" id="discount-original" data-i18n-placeholder="Original price" placeholder="Original price" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-orange-500">
                 <input type="number" id="discount-percent" placeholder="Discount %" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-center focus:border-orange-500">
             </div>
 
@@ -1111,6 +1126,41 @@ const productivityHTML = `
 
             <button onclick="rollDice()" class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-semibold transition-colors text-sm">
                 Roll Dice
+            </button>
+        </div>
+
+        <!-- TARJETA: Virtual Coin -->
+        <div class="tool-card glass-panel rounded-2xl p-6 flex flex-col gap-4 border-t-4 border-t-slate-400">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="p-2 bg-slate-400/20 rounded-lg text-slate-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white">Virtual Coin</h3>
+            </div>
+
+            <p class="text-sm text-slate-400">Flip a coin (Heads or Tails).</p>
+
+            <div style="display: flex; justify-content: center; align-items: center; height: 80px;">
+                <div id="coin-display" style="
+                    width: 70px; 
+                    height: 70px; 
+                    background: linear-gradient(135deg, #94a3b8 0%, #64748b 50%, #475569 100%);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 32px;
+                    font-weight: bold;
+                    color: white;
+                    box-shadow: 0 4px 15px rgba(148, 163, 184, 0.4), inset 0 2px 4px rgba(255,255,255,0.2);
+                    border: 3px solid #cbd5e1;
+                ">🪙</div>
+            </div>
+
+            <button onclick="flipCoin()" class="w-full py-2 bg-slate-500 hover:bg-slate-400 text-white rounded-lg font-semibold transition-colors text-sm">
+                Flip Coin
             </button>
         </div>
 
@@ -2251,6 +2301,34 @@ function rollDice() {
             dice.textContent = diceEmojis[result - 1];
             dice.style.transform = 'rotate(0deg) scale(1)';
             dice.style.transition = 'transform 0.3s ease';
+        }
+    }, 100);
+}
+
+/*
+FUNCIÓN: flipCoin()
+----------------------------------------------------------------------
+Tira una moneda virtual con animación.
+*/
+function flipCoin() {
+    const coin = document.getElementById('coin-display');
+    
+    // Animación de volteo
+    let flips = 0;
+    const maxFlips = 15;
+    const interval = setInterval(() => {
+        // Alternar entre cara y cruz
+        coin.textContent = flips % 2 === 0 ? '🪙' : '🔄';
+        coin.style.transform = `rotateY(${flips * 180}deg) scale(${0.9 + Math.random() * 0.2})`;
+        flips++;
+        
+        if (flips >= maxFlips) {
+            clearInterval(interval);
+            // Resultado final (50% probabilidad)
+            const isHeads = Math.random() >= 0.5;
+            coin.textContent = isHeads ? '🇭🇺' : '🇹🇼';
+            coin.style.transform = 'rotateY(0deg) scale(1)';
+            coin.style.transition = 'transform 0.5s ease';
         }
     }, 100);
 }
